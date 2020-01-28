@@ -4,11 +4,18 @@ import java.awt.*;
 
 public class Gui extends JFrame{
     private JLabel label;
+    private JLabel imgLabel;
     private JButton button;
     private JTextField textfield;
+    private ImageIcon image1;
 
-    public Gui(){
+    public Gui() {
         setLayout(new FlowLayout());
+
+        image1 = new ImageIcon(getClass().getResource("image1.png"));
+
+        imgLabel = new JLabel(image1);
+        add(imgLabel);
 
         label = new JLabel("Label");
         add(label);
@@ -27,5 +34,6 @@ public class Gui extends JFrame{
         window.setSize(500,500);
         window.setVisible(true);
         window.setTitle("Stock Data Manager");
+        window.pack();
     }
 }
