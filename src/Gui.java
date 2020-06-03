@@ -3,27 +3,22 @@ import java.awt.*;
 
 
 public class Gui extends JFrame{
-    private JLabel label;
-    private JLabel imgLabel;
-    private JButton button;
-    private JTextField textfield;
-    private ImageIcon image1;
 
     public Gui() {
         setLayout(new FlowLayout());
 
-        image1 = new ImageIcon(getClass().getResource("image1.png"));
+        ImageIcon image1 = new ImageIcon(getClass().getResource("image1.png"));
 
-        imgLabel = new JLabel(image1);
+        JLabel imgLabel = new JLabel(image1);
         add(imgLabel);
 
-        label = new JLabel("Label");
+        JLabel label = new JLabel("Label");
         add(label);
 
-        textfield = new JTextField(15);
+        JTextField textfield = new JTextField(15);
         add(textfield);
 
-        button = new JButton("Button");
+        JButton button = new JButton("Button");
         add(button);
 
     }
