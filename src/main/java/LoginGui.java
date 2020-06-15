@@ -1,12 +1,12 @@
-import com.mongodb.*;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.UnknownHostException;
 
 /*
 public class Gui extends JFrame{
@@ -54,15 +54,11 @@ public class LoginGui implements ActionListener {
 
     public static void mongoConnect() {
         MongoClient mongoClient = MongoClients.create();
-                /*
-        DB database = mongoClient.getDB("SDMLoginDB");
-        database.createCollection("Usernames", null);
-        DBObject test = new BasicDBObject("username", "testname").append("password", "abc");
-        DBCollection usernames = database.getCollection("Usernames");
-        usernames.insert(test);
-        usernames.save(test);
+        MongoDatabase database = mongoClient.getDatabase("SDMLoginDB");
+        MongoCollection<Document> collection = database.getCollection("Usernames");
 
-                 */
+        Document test = new Document("username", "testname").append("password", "abc123!");
+        collection.insertOne(test);
     }
 
     public static void main (String[] args) {
