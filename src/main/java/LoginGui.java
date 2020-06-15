@@ -1,5 +1,6 @@
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import com.mongodb.*;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,10 +52,22 @@ public class LoginGui implements ActionListener {
     private static JButton login;
     private static JLabel correct;
 
+    public static void mongoConnect() {
+        MongoClient mongoClient = MongoClients.create();
+                /*
+        DB database = mongoClient.getDB("SDMLoginDB");
+        database.createCollection("Usernames", null);
+        DBObject test = new BasicDBObject("username", "testname").append("password", "abc");
+        DBCollection usernames = database.getCollection("Usernames");
+        usernames.insert(test);
+        usernames.save(test);
 
+                 */
+    }
 
-    public static void main (String[] args) throws UnknownHostException {
-        MongoClient mongoClient = new MongoClient("localhost");
+    public static void main (String[] args) {
+        mongoConnect();
+
         JPanel panel = new JPanel();
 
         JFrame frame = new JFrame();
