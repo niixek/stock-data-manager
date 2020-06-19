@@ -2,7 +2,9 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.*;
 import org.bson.Document;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -51,18 +53,23 @@ public class LoginGui implements ActionListener {
     private static JTextField passText;
     private static JButton login;
     private static JLabel correct;
+    private static MongoCollection<Document> usernames;
 
-    public static void mongoConnect() {
+    public static MongoCollection<Document> mongoConnect() {
         MongoClient mongoClient = MongoClients.create();
         MongoDatabase database = mongoClient.getDatabase("SDMLoginDB");
         MongoCollection<Document> collection = database.getCollection("Usernames");
 
+        return collection;
+
+        /*
         Document test = new Document("username", "testname").append("password", "abc123!");
         collection.insertOne(test);
+        */
     }
 
     public static void main (String[] args) {
-        mongoConnect();
+        usernames = mongoConnect();
 
         JPanel panel = new JPanel();
 
@@ -107,12 +114,15 @@ public class LoginGui implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String username = userText.getText();
         String password = passText.getText();
-
+        /*
         if (username.equals("test") && password.equals("abc")) {
             correct.setText("Logged in Successfully!");
         }
         else {
             correct.setText("Incorrect username/password!");
         }
+        */
+        System.out.println("Username: " + username);
+        System.out.println(usernames.find(eq("username", username)));
     }
 }
