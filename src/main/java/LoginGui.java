@@ -1,3 +1,4 @@
+import com.mongodb.Block;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -9,42 +10,6 @@ import org.bson.Document;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-/*
-public class Gui extends JFrame{
-    public Gui() {
-        setLayout(new FlowLayout());
-
-        ImageIcon image1 = new ImageIcon(getClass().getResource("image1.png"));
-
-        JLabel imgLabel = new JLabel(image1);
-        imgLabel.setToolTipText("Welcome to the Stock Data Manager");
-        imgLabel.setSize(50,50);
-        add(imgLabel);
-
-        JLabel label = new JLabel("Username");
-        label.setBounds(10,20,80,25);
-        add(label);
-
-        JTextField textfield = new JTextField(15);
-        add(textfield);
-
-        JButton button = new JButton("Button");
-        add(button);
-
-    }
-
-    public static void main(String[] args){
-        Gui window = new Gui();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(500,500);
-        window.setVisible(true);
-        window.setTitle("Stock Data Manager");
-        window.pack();
-    }
-}
-
- */
 
 public class LoginGui implements ActionListener {
     private static JLabel userLabel;
@@ -61,11 +26,6 @@ public class LoginGui implements ActionListener {
         MongoCollection<Document> collection = database.getCollection("Usernames");
 
         return collection;
-
-        /*
-        Document test = new Document("username", "testname").append("password", "abc123!");
-        collection.insertOne(test);
-        */
     }
 
     public static void main (String[] args) {
@@ -114,6 +74,7 @@ public class LoginGui implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String username = userText.getText();
         String password = passText.getText();
+        Block<Document> printBlock = document -> System.out.println(document.toJson());
         /*
         if (username.equals("test") && password.equals("abc")) {
             correct.setText("Logged in Successfully!");
@@ -123,6 +84,13 @@ public class LoginGui implements ActionListener {
         }
         */
         System.out.println("Username: " + username);
-        System.out.println(usernames.find(eq("username", username)));
+        for (Document document : usernames.find(eq("username", username))) {
+            /*if(document != null) {
+
+            }
+
+             */
+            printBlock.apply(document);
+        }
     }
 }
