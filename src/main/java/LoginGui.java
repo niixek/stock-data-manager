@@ -30,6 +30,19 @@ public class LoginGui implements ActionListener {
 
     public static void main (String[] args) {
         usernames = mongoConnect();
+        Action attemptLogin = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = userText.getText();
+                String password = passText.getText();
+                Block<Document> printBlock = document -> System.out.println(document.toJson());
+                System.out.println("Username: " + username);
+                System.out.println("Password: " + password);
+                for (Document document : usernames.find(eq("username", username))) {
+                    printBlock.apply(document);
+                }
+            }
+        };
 
         JPanel panel = new JPanel();
 
@@ -47,6 +60,7 @@ public class LoginGui implements ActionListener {
 
         userText = new JTextField(20);
         userText.setBounds(100,20,165,25);
+        userText.addActionListener(attemptLogin);
         panel.add(userText);
 
         passLabel = new JLabel("Password");
@@ -55,6 +69,7 @@ public class LoginGui implements ActionListener {
 
         passText = new JPasswordField(20);
         passText.setBounds(100,50,165,25);
+        passText.addActionListener(attemptLogin);
         panel.add(passText);
 
         login = new JButton("Login");
@@ -70,6 +85,7 @@ public class LoginGui implements ActionListener {
         frame.setVisible(true);
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String username = userText.getText();
@@ -83,13 +99,15 @@ public class LoginGui implements ActionListener {
             correct.setText("Incorrect username/password!");
         }
         */
+
         System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
         for (Document document : usernames.find(eq("username", username))) {
             /*if(document != null) {
 
             }
+            */
 
-             */
             printBlock.apply(document);
         }
     }
