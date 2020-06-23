@@ -17,6 +17,7 @@ public class LoginGui implements ActionListener {
     private static JLabel passLabel;
     private static JTextField passText;
     private static JButton login;
+    private static JButton register;
     private static JLabel correct;
     private static MongoCollection<Document> usernames;
 
@@ -77,11 +78,16 @@ public class LoginGui implements ActionListener {
         login.addActionListener(new LoginGui());
         panel.add(login);
 
+        register = new JButton("Register");
+        register.setBounds(100, 80, 90, 25);
+        register.addActionListener(new LoginGui());
+        panel.add(register);
+
         correct = new JLabel("");
         correct.setBounds(10,110,300,25);
         panel.add(correct);
 
-
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
