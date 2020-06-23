@@ -80,7 +80,10 @@ public class LoginGui implements ActionListener {
 
         register = new JButton("Register");
         register.setBounds(100, 80, 90, 25);
-        register.addActionListener(new LoginGui());
+        register.addActionListener(e -> {
+            RegisterGui rg = new RegisterGui();
+            rg.createNewUser();
+        });
         panel.add(register);
 
         correct = new JLabel("");

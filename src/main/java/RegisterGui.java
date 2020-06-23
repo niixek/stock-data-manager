@@ -19,7 +19,7 @@ public class RegisterGui implements ActionListener{
         JFrame frame = new JFrame();
         frame.setSize(400,200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Login");
+        frame.setTitle("Register a New Account");
         frame.add(panel);
 
         panel.setLayout(null);
@@ -40,8 +40,8 @@ public class RegisterGui implements ActionListener{
         passText.setBounds(100,50,165,25);
         panel.add(passText);
 
-        login = new JButton("Login");
-        login.setBounds(10, 80, 80, 25);
+        login = new JButton("Register");
+        login.setBounds(10, 80, 90, 25);
         login.addActionListener(new LoginGui());
         panel.add(login);
 
@@ -50,6 +50,7 @@ public class RegisterGui implements ActionListener{
         panel.add(correct);
 
 
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
