@@ -39,8 +39,20 @@ public class LoginGui implements ActionListener {
                 Block<Document> printBlock = document -> System.out.println(document.toJson());
                 System.out.println("Username: " + username);
                 System.out.println("Password: " + password);
-                for (Document document : usernames.find(eq("username", username))) {
-                    printBlock.apply(document);
+                if (username.isEmpty() && password.isEmpty()) {
+                    correct.setText("Please enter login credentials.");
+                }
+                else if (username.isEmpty()) {
+                    correct.setText("Please enter a username.");
+                }
+                else if (password.isEmpty()) {
+                    correct.setText("Please enter a password.");
+                }
+                else {
+                    correct.setText("");
+                    for (Document document : usernames.find(eq("username", username))) {
+                        printBlock.apply(document);
+                    }
                 }
             }
         };
@@ -111,13 +123,20 @@ public class LoginGui implements ActionListener {
 
         System.out.println("Username: " + username);
         System.out.println("Password: " + password);
-        for (Document document : usernames.find(eq("username", username))) {
-            /*if(document != null) {
-
+        if (username.isEmpty() && password.isEmpty()) {
+            correct.setText("Please enter login credentials.");
+        }
+        else if (username.isEmpty()) {
+            correct.setText("Please enter a username.");
+        }
+        else if (password.isEmpty()) {
+            correct.setText("Please enter a password.");
+        }
+        else {
+            correct.setText("");
+            for (Document document : usernames.find(eq("username", username))) {
+                printBlock.apply(document);
             }
-            */
-
-            printBlock.apply(document);
         }
     }
 }
