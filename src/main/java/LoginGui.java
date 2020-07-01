@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginGui implements ActionListener {
+    private static JFrame frame;
     private static JLabel userLabel;
     private static JTextField userText;
     private static JLabel passLabel;
@@ -36,6 +37,7 @@ public class LoginGui implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 String username = userText.getText();
                 String password = passText.getText();
+                boolean loggedIn = false;
                 Block<Document> printBlock = document -> System.out.println(document.toJson());
                 System.out.println("Username: " + username);
                 System.out.println("Password: " + password);
@@ -51,7 +53,15 @@ public class LoginGui implements ActionListener {
                 else {
                     correct.setText("");
                     for (Document document : usernames.find(eq("username", username))) {
-                        printBlock.apply(document);
+                        if (document.get("password").equals(password)) {
+                            loggedIn = true;
+                        }
+                    }
+                    if (loggedIn) {
+                        frame.dispose();
+                    }
+                    else {
+                        correct.setText("Incorrect username/password.");
                     }
                 }
             }
@@ -59,7 +69,7 @@ public class LoginGui implements ActionListener {
 
         JPanel panel = new JPanel();
 
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         frame.setSize(400,200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Login");
@@ -111,15 +121,8 @@ public class LoginGui implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String username = userText.getText();
         String password = passText.getText();
+        boolean loggedIn = false;
         Block<Document> printBlock = document -> System.out.println(document.toJson());
-        /*
-        if (username.equals("test") && password.equals("abc")) {
-            correct.setText("Logged in Successfully!");
-        }
-        else {
-            correct.setText("Incorrect username/password!");
-        }
-        */
 
         System.out.println("Username: " + username);
         System.out.println("Password: " + password);
@@ -135,7 +138,15 @@ public class LoginGui implements ActionListener {
         else {
             correct.setText("");
             for (Document document : usernames.find(eq("username", username))) {
-                printBlock.apply(document);
+                if (document.get("password").equals(password)) {
+                    loggedIn = true;
+                }
+            }
+            if (loggedIn) {
+                frame.dispose();
+            }
+            else {
+                correct.setText("Incorrect username/password.");
             }
         }
     }
