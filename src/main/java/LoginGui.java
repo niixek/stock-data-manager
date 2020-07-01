@@ -12,11 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginGui implements ActionListener {
-    private static JFrame frame;
-    private static JTextField userText;
-    private static JTextField passText;
-    private static JLabel correct;
-    private static MongoCollection<Document> usernames;
+    private JFrame frame;
+    private JTextField userText;
+    private JTextField passText;
+    private JLabel correct;
+    private MongoCollection<Document> usernames;
 
     public static MongoCollection<Document> mongoConnect() {
         MongoClient mongoClient = MongoClients.create();
@@ -25,7 +25,7 @@ public class LoginGui implements ActionListener {
         return database.getCollection("Usernames");
     }
 
-    public static void main (String[] args) {
+    public void login() {
         usernames = mongoConnect();
         Action attemptLogin = new AbstractAction() {
             @Override
@@ -91,7 +91,7 @@ public class LoginGui implements ActionListener {
 
         JButton login = new JButton("Login");
         login.setBounds(10, 80, 80, 25);
-        login.addActionListener(new LoginGui());
+        login.addActionListener(attemptLogin);
         panel.add(login);
 
         JButton register = new JButton("Register");
@@ -99,6 +99,7 @@ public class LoginGui implements ActionListener {
         register.addActionListener(e -> {
             RegisterGui rg = new RegisterGui();
             rg.createNewUser();
+            frame.dispose();
         });
         panel.add(register);
 
@@ -113,10 +114,10 @@ public class LoginGui implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        /*
         String username = userText.getText();
         String password = passText.getText();
         boolean loggedIn = false;
-
         System.out.println("Username: " + username);
         System.out.println("Password: " + password);
         if (username.isEmpty() && password.isEmpty()) {
@@ -142,5 +143,7 @@ public class LoginGui implements ActionListener {
                 correct.setText("Incorrect username/password.");
             }
         }
+
+         */
     }
 }
