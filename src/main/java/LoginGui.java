@@ -99,7 +99,7 @@ public class LoginGui implements ActionListener {
         register.addActionListener(e -> {
             RegisterGui rg = new RegisterGui();
             rg.createNewUser();
-            frame.dispose();
+            frame.setVisible(false);
         });
         panel.add(register);
 

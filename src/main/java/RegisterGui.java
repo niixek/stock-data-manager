@@ -10,9 +10,9 @@ import static com.mongodb.client.model.Filters.eq;
 
 public class RegisterGui implements ActionListener{
     private JFrame frame;
-    private JTextField user;
-    private JTextField pass;
-    private JLabel check;
+    private JTextField userText;
+    private JTextField passText;
+    private JLabel correct;
     private MongoCollection<Document> usernames;
 
     public MongoCollection<Document> mongoConnect() {
@@ -24,6 +24,39 @@ public class RegisterGui implements ActionListener{
 
     public void createNewUser() {
         usernames = mongoConnect();
+        Action attemptLogin = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = userText.getText();
+                String password = passText.getText();
+                boolean registered = false;
+                System.out.println("Username: " + username);
+                System.out.println("Password: " + password);
+                if (username.isEmpty() && password.isEmpty()) {
+                    correct.setText("Please enter login credentials.");
+                }
+                else if (username.isEmpty()) {
+                    correct.setText("Please enter a username.");
+                }
+                else if (password.isEmpty()) {
+                    correct.setText("Please enter a password.");
+                }
+                else {
+                    correct.setText("");
+                    for (Document document : usernames.find(eq("username", username))) {
+                        if (document.get("password").equals(password)) {
+                            registered = true;
+                        }
+                    }
+                    if (registered) {
+                        frame.dispose();
+                    }
+                    else {
+                        correct.setText("Incorrect username/password.");
+                    }
+                }
+            }
+        };
         JPanel panel = new JPanel();
 
         frame = new JFrame();
@@ -38,26 +71,26 @@ public class RegisterGui implements ActionListener{
         userLabel.setBounds(10, 20, 80, 25);
         panel.add(userLabel);
 
-        user = new JTextField(20);
-        user.setBounds(100,20,165,25);
-        panel.add(user);
+        userText = new JTextField(20);
+        userText.setBounds(100,20,165,25);
+        panel.add(userText);
 
         JLabel passLabel = new JLabel("Password");
         passLabel.setBounds(10, 50, 80, 25);
         panel.add(passLabel);
 
-        pass = new JPasswordField(20);
-        pass.setBounds(100,50,165,25);
-        panel.add(pass);
+        passText = new JPasswordField(20);
+        passText.setBounds(100,50,165,25);
+        panel.add(passText);
 
-        JButton login = new JButton("Register");
-        login.setBounds(10, 80, 90, 25);
-        login.addActionListener(new LoginGui());
-        panel.add(login);
+        JButton register = new JButton("Register");
+        register.setBounds(10, 80, 90, 25);
+        register.addActionListener(attemptLogin);
+        panel.add(register);
 
-        check = new JLabel("");
-        check.setBounds(10,110,300,25);
-        panel.add(check);
+        correct = new JLabel("");
+        correct.setBounds(10,110,300,25);
+        panel.add(correct);
 
 
         frame.setLocationRelativeTo(null);
@@ -68,38 +101,5 @@ public class RegisterGui implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String username = user.getText();
-        String password = pass.getText();
-        boolean createUser = false;
-
-        System.out.println("Username: " + username);
-        System.out.println("Password: " + password);
-        /*
-        if (username.isEmpty() && password.isEmpty()) {
-            check.setText("Please enter a username and password.");
-        }
-        else if (username.isEmpty()) {
-            check.setText("Please enter a username.");
-        }
-        else if (password.isEmpty()) {
-            check.setText("Please enter a password.");
-        }
-        else {
-            check.setText("");
-            for (Document document : usernames.find(eq("username", username))) {
-                if (document.isEmpty()) {
-                    createUser = true;
-                    break;
-                }
-            }
-            if (createUser) {
-                frame.dispose();
-            }
-            else {
-                check.setText("That username is already taken, please try another.");
-            }
-        }
-
-         */
     }
 }
