@@ -16,7 +16,10 @@ public class StockDataManager {
 
     public static void main (String[] args) {
         collection = mongoConnect();
+
         LoginGui lg = new LoginGui(collection);
         lg.login();
+
+
     }
 }
