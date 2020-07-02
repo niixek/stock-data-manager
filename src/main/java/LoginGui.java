@@ -12,11 +12,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginGui implements ActionListener {
-    private JFrame frame;
+    private JFrame loginFrame;
     private JTextField userText;
     private JTextField passText;
     private JLabel correct;
     private MongoCollection<Document> usernames;
+
+    public JFrame getFrame() {
+        return loginFrame;
+    }
 
     public static MongoCollection<Document> mongoConnect() {
         MongoClient mongoClient = MongoClients.create();
@@ -52,7 +56,7 @@ public class LoginGui implements ActionListener {
                         }
                     }
                     if (loggedIn) {
-                        frame.dispose();
+                        loginFrame.dispose();
                     }
                     else {
                         correct.setText("Incorrect username/password.");
@@ -63,11 +67,11 @@ public class LoginGui implements ActionListener {
 
         JPanel panel = new JPanel();
 
-        frame = new JFrame();
-        frame.setSize(400,200);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Login");
-        frame.add(panel);
+        loginFrame = new JFrame();
+        loginFrame.setSize(400,200);
+        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginFrame.setTitle("Login");
+        loginFrame.add(panel);
 
         panel.setLayout(null);
 
@@ -98,8 +102,8 @@ public class LoginGui implements ActionListener {
         register.setBounds(100, 80, 90, 25);
         register.addActionListener(e -> {
             RegisterGui rg = new RegisterGui();
-            rg.createNewUser();
-            frame.setVisible(false);
+            rg.createNewUser(this);
+            loginFrame.setVisible(false);
         });
         panel.add(register);
 
@@ -107,8 +111,8 @@ public class LoginGui implements ActionListener {
         correct.setBounds(10,110,300,25);
         panel.add(correct);
 
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        loginFrame.setLocationRelativeTo(null);
+        loginFrame.setVisible(true);
     }
 
 

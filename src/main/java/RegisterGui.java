@@ -22,18 +22,18 @@ public class RegisterGui implements ActionListener{
         return database.getCollection("Usernames");
     }
 
-    public void createNewUser() {
+    public void createNewUser(LoginGui login) {
         usernames = mongoConnect();
         Action attemptLogin = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = userText.getText();
                 String password = passText.getText();
-                boolean registered = false;
+                boolean registered = true;
                 System.out.println("Username: " + username);
                 System.out.println("Password: " + password);
                 if (username.isEmpty() && password.isEmpty()) {
-                    correct.setText("Please enter login credentials.");
+                    correct.setText("Please enter a username and password.");
                 }
                 else if (username.isEmpty()) {
                     correct.setText("Please enter a username.");
@@ -44,15 +44,19 @@ public class RegisterGui implements ActionListener{
                 else {
                     correct.setText("");
                     for (Document document : usernames.find(eq("username", username))) {
-                        if (document.get("password").equals(password)) {
-                            registered = true;
+                        if (document != null) {
+                            registered = false;
+                            break;
                         }
                     }
                     if (registered) {
+                        Document newUser = new Document("username", username).append("password", password);
+                        usernames.insertOne(newUser);
                         frame.dispose();
+                        login.getFrame().setVisible(true);
                     }
                     else {
-                        correct.setText("Incorrect username/password.");
+                        correct.setText("Username already exists.");
                     }
                 }
             }
@@ -73,6 +77,7 @@ public class RegisterGui implements ActionListener{
 
         userText = new JTextField(20);
         userText.setBounds(100,20,165,25);
+        userText.addActionListener(attemptLogin);
         panel.add(userText);
 
         JLabel passLabel = new JLabel("Password");
@@ -81,6 +86,7 @@ public class RegisterGui implements ActionListener{
 
         passText = new JPasswordField(20);
         passText.setBounds(100,50,165,25);
+        passText.addActionListener(attemptLogin);
         panel.add(passText);
 
         JButton register = new JButton("Register");
