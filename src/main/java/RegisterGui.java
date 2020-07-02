@@ -15,15 +15,9 @@ public class RegisterGui implements ActionListener{
     private JLabel correct;
     private MongoCollection<Document> usernames;
 
-    /*
-        mongoConnect() allows connection to the "Stock Data" MongoDB database
-        returns the "Usernames" collection
-     */
-    public MongoCollection<Document> mongoConnect() {
-        MongoClient mongoClient = MongoClients.create();
-        MongoDatabase database = mongoClient.getDatabase("SDMLoginDB");
-
-        return database.getCollection("Usernames");
+    //The constructor takes in a MongoDB collection and assigns the "usernames" field to the collection
+    public RegisterGui(MongoCollection<Document> collection) {
+        usernames = collection;
     }
 
     /*
@@ -31,10 +25,9 @@ public class RegisterGui implements ActionListener{
        login window passed into it after successful registration.
     */
     public void createNewUser(LoginGui login) {
-        usernames = mongoConnect();
         /*
             attemptLogin allows logging in from pressing enter from either text field
-            as well as clicking the login button
+            as well as clicking the login button.
         */
         Action attemptRegister = new AbstractAction() {
             @Override
@@ -119,8 +112,6 @@ public class RegisterGui implements ActionListener{
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -17,8 +17,13 @@ public class LoginGui implements ActionListener {
     private JLabel correct;
     private MongoCollection<Document> usernames;
 
+    //The constructor takes in a MongoDB collection and assigns the "usernames" field to the collection
+    public LoginGui(MongoCollection<Document> collection) {
+        usernames = collection;
+    }
+
     /*
-        getFrame() is a getter method for the current LoginGui frame
+        getFrame() is a getter method for the current LoginGui frame.
         returns the current LoginGui JFrame
      */
     public JFrame getFrame() {
@@ -26,26 +31,13 @@ public class LoginGui implements ActionListener {
     }
 
     /*
-        mongoConnect() allows connection to the "Stock Data" MongoDB database
-        returns the "Usernames" collection
-     */
-    public static MongoCollection<Document> mongoConnect() {
-        MongoClient mongoClient = MongoClients.create();
-        MongoDatabase database = mongoClient.getDatabase("SDMLoginDB");
-
-        return database.getCollection("Usernames");
-    }
-
-    /*
         login() is the main logic behind the Login GUI, it calls on the Register GUI if a new
-        username wants to be created
+        username wants to be created.
      */
     public void login() {
-        usernames = mongoConnect();
-
         /*
             attemptLogin allows logging in from pressing enter from either text field
-            as well as clicking the login button
+            as well as clicking the login button.
         */
         Action attemptLogin = new AbstractAction() {
             @Override
@@ -64,7 +56,7 @@ public class LoginGui implements ActionListener {
                 else if (password.isEmpty()) {
                     correct.setText("Please enter a password.");
                 }
-                //Checks if the username exists in the database, if so, close the window
+                //Checks if the username exists in the database, if so, close the window.
                 else {
                     correct.setText("");
                     for (Document document : usernames.find(eq("username", username))) {
@@ -116,13 +108,13 @@ public class LoginGui implements ActionListener {
         panel.add(login);
 
         /*
-            This button opens up a Register window and sends the current login instance
+            This button opens up a Register window and sends the current login instance and collection
             to be used. Hides the current login GUI.
          */
         JButton register = new JButton("Register");
         register.setBounds(100, 80, 90, 25);
         register.addActionListener(e -> {
-            RegisterGui rg = new RegisterGui();
+            RegisterGui rg = new RegisterGui(usernames);
             rg.createNewUser(this);
             loginFrame.setVisible(false);
         });
@@ -135,7 +127,6 @@ public class LoginGui implements ActionListener {
         loginFrame.setLocationRelativeTo(null);
         loginFrame.setVisible(true);
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
