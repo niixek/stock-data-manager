@@ -19,7 +19,5 @@ public class StockDataManager {
 
         LoginGui lg = new LoginGui(collection);
         lg.login();
-
-
     }
 }

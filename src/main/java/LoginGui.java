@@ -45,8 +45,8 @@ public class LoginGui implements ActionListener {
                 String username = userText.getText();
                 String password = passText.getText();
                 boolean loggedIn = false;
-                System.out.println("Username: " + username);
-                System.out.println("Password: " + password);
+                //System.out.println("Username: " + username);
+                //System.out.println("Password: " + password);
                 if (username.isEmpty() && password.isEmpty()) {
                     correct.setText("Please enter login credentials.");
                 }
@@ -66,6 +66,8 @@ public class LoginGui implements ActionListener {
                     }
                     if (loggedIn) {
                         loginFrame.dispose();
+                        InformationGui ig = new InformationGui(usernames, username);
+                        ig.enterInfo();
                     }
                     else {
                         correct.setText("Incorrect username/password.");

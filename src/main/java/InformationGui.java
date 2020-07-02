@@ -1,3 +1,6 @@
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -5,9 +8,16 @@ import java.awt.event.ActionListener;
 public class InformationGui implements ActionListener {
     private JFrame infoFrame;
     private JTextField stockText;
+    private MongoCollection<Document> usernames;
+    private String username;
+
+    public InformationGui(MongoCollection<Document> collection, String user) {
+        usernames = collection;
+        username = user;
+    }
 
 
-    public void info() {
+    public void enterInfo() {
         JPanel panel = new JPanel();
 
         infoFrame = new JFrame();
