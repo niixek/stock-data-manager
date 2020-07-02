@@ -15,6 +15,10 @@ public class RegisterGui implements ActionListener{
     private JLabel correct;
     private MongoCollection<Document> usernames;
 
+    /*
+        mongoConnect() allows connection to the "Stock Data" MongoDB database
+        returns the "Usernames" collection
+     */
     public MongoCollection<Document> mongoConnect() {
         MongoClient mongoClient = MongoClients.create();
         MongoDatabase database = mongoClient.getDatabase("SDMLoginDB");
@@ -22,9 +26,17 @@ public class RegisterGui implements ActionListener{
         return database.getCollection("Usernames");
     }
 
+    /*
+       createNewUser() is the main logic behind the Register GUI. It takes in a login GUI to reopen the
+       login window passed into it after successful registration.
+    */
     public void createNewUser(LoginGui login) {
         usernames = mongoConnect();
-        Action attemptLogin = new AbstractAction() {
+        /*
+            attemptLogin allows logging in from pressing enter from either text field
+            as well as clicking the login button
+        */
+        Action attemptRegister = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = userText.getText();
@@ -41,6 +53,11 @@ public class RegisterGui implements ActionListener{
                 else if (password.isEmpty()) {
                     correct.setText("Please enter a password.");
                 }
+                /*
+                    Checks if the username exists in the database, if not, register the username.
+                    After the username is inserted into the database, close the register window and reopen the
+                    login window.
+                 */
                 else {
                     correct.setText("");
                     for (Document document : usernames.find(eq("username", username))) {
@@ -77,7 +94,7 @@ public class RegisterGui implements ActionListener{
 
         userText = new JTextField(20);
         userText.setBounds(100,20,165,25);
-        userText.addActionListener(attemptLogin);
+        userText.addActionListener(attemptRegister);
         panel.add(userText);
 
         JLabel passLabel = new JLabel("Password");
@@ -86,12 +103,12 @@ public class RegisterGui implements ActionListener{
 
         passText = new JPasswordField(20);
         passText.setBounds(100,50,165,25);
-        passText.addActionListener(attemptLogin);
+        passText.addActionListener(attemptRegister);
         panel.add(passText);
 
         JButton register = new JButton("Register");
         register.setBounds(10, 80, 90, 25);
-        register.addActionListener(attemptLogin);
+        register.addActionListener(attemptRegister);
         panel.add(register);
 
         correct = new JLabel("");

@@ -1,4 +1,3 @@
-import com.mongodb.Block;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -18,10 +17,18 @@ public class LoginGui implements ActionListener {
     private JLabel correct;
     private MongoCollection<Document> usernames;
 
+    /*
+        getFrame() is a getter method for the current LoginGui frame
+        returns the current LoginGui JFrame
+     */
     public JFrame getFrame() {
         return loginFrame;
     }
 
+    /*
+        mongoConnect() allows connection to the "Stock Data" MongoDB database
+        returns the "Usernames" collection
+     */
     public static MongoCollection<Document> mongoConnect() {
         MongoClient mongoClient = MongoClients.create();
         MongoDatabase database = mongoClient.getDatabase("SDMLoginDB");
@@ -29,8 +36,17 @@ public class LoginGui implements ActionListener {
         return database.getCollection("Usernames");
     }
 
+    /*
+        login() is the main logic behind the Login GUI, it calls on the Register GUI if a new
+        username wants to be created
+     */
     public void login() {
         usernames = mongoConnect();
+
+        /*
+            attemptLogin allows logging in from pressing enter from either text field
+            as well as clicking the login button
+        */
         Action attemptLogin = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -48,6 +64,7 @@ public class LoginGui implements ActionListener {
                 else if (password.isEmpty()) {
                     correct.setText("Please enter a password.");
                 }
+                //Checks if the username exists in the database, if so, close the window
                 else {
                     correct.setText("");
                     for (Document document : usernames.find(eq("username", username))) {
@@ -98,6 +115,10 @@ public class LoginGui implements ActionListener {
         login.addActionListener(attemptLogin);
         panel.add(login);
 
+        /*
+            This button opens up a Register window and sends the current login instance
+            to be used. Hides the current login GUI.
+         */
         JButton register = new JButton("Register");
         register.setBounds(100, 80, 90, 25);
         register.addActionListener(e -> {
