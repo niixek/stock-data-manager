@@ -35,8 +35,8 @@ public class RegisterGui implements ActionListener{
                 String username = userText.getText();
                 String password = passText.getText();
                 boolean registered = true;
-                System.out.println("Username: " + username);
-                System.out.println("Password: " + password);
+                //System.out.println("Username: " + username);
+                //System.out.println("Password: " + password);
                 if (username.isEmpty() && password.isEmpty()) {
                     correct.setText("Please enter a username and password.");
                 }

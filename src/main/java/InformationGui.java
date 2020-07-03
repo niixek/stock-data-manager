@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 public class InformationGui implements ActionListener {
     private JFrame infoFrame;
+    private JTextField dateText;
     private JTextField stockText;
     private MongoCollection<Document> usernames;
     private String username;
@@ -28,12 +29,20 @@ public class InformationGui implements ActionListener {
 
         panel.setLayout(null);
 
+        JLabel dataLabel = new JLabel("Start Date");
+        dataLabel.setBounds(10, 20, 80, 25);
+        panel.add(dataLabel);
+
+        dateText = new JTextField(20);
+        dateText.setBounds(100,20,165,25);
+        panel.add(dateText);
+
         JLabel stockLabel = new JLabel("Stock Name");
-        stockLabel.setBounds(10, 20, 80, 25);
+        stockLabel.setBounds(10, 60, 80, 25);
         panel.add(stockLabel);
 
         stockText = new JTextField(20);
-        stockText.setBounds(100,20,165,25);
+        stockText.setBounds(100,60,165,25);
         panel.add(stockText);
 
         /*
