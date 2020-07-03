@@ -2,6 +2,7 @@ import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,9 +30,10 @@ public class InformationGui implements ActionListener {
 
         panel.setLayout(null);
 
-        JLabel dataLabel = new JLabel("Start Date");
-        dataLabel.setBounds(10, 20, 80, 25);
-        panel.add(dataLabel);
+        JLabel dateLabel = new JLabel("Start Date");
+        dateLabel.setBounds(10, 20, 80, 25);
+        dateLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
+        panel.add(dateLabel);
 
         dateText = new JTextField(20);
         dateText.setBounds(100,20,165,25);
