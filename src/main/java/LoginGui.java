@@ -78,31 +78,31 @@ public class LoginGui implements ActionListener {
         };
 
         JPanel panel = new JPanel();
-        panel.setBackground(Color.WHITE);
+        panel.setBackground(Color.DARK_GRAY);
 
         loginFrame = new JFrame();
-        loginFrame.setSize(400,525);
+        loginFrame.setSize(400,350);
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.setUndecorated(true);
         loginFrame.add(panel);
 
         panel.setLayout(null);
 
-        /*
-        JLabel userLabel = new JLabel("Username");
-        userLabel.setBounds(10, 20, 80, 25);
-        userLabel.setFont(new Font("Montserrat", Font.PLAIN, 14));
-        panel.add(userLabel);
 
-         */
+        JLabel logLabel = new JLabel("Login");
+        logLabel.setBounds(150, 20, 100, 60);
+        logLabel.setFont(new Font("Montserrat", Font.PLAIN, 40));
+        logLabel.setForeground(Color.WHITE);
+        panel.add(logLabel);
 
         userText = new JTextField(20);
         userText.setBounds(50,150,300,35);
         userText.setFont(new Font("Montserrat", Font.PLAIN, 14));
         userText.addActionListener(attemptLogin);
+        userText.setBorder(BorderFactory.createEmptyBorder());
         panel.add(userText);
 
-        TextPrompt userPrompt = new TextPrompt("Username", userText);
+        TextPrompt userPrompt = new TextPrompt("   Username", userText);
         userPrompt.changeAlpha(.5f);
         userPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
@@ -114,9 +114,15 @@ public class LoginGui implements ActionListener {
          */
 
         passText = new JPasswordField(20);
-        passText.setBounds(100,50,165,25);
+        passText.setBounds(50,200,300,35);
+        passText.setFont(new Font("Montserrat", Font.PLAIN, 14));
         passText.addActionListener(attemptLogin);
+        passText.setBorder(BorderFactory.createEmptyBorder());
         panel.add(passText);
+
+        TextPrompt passPrompt = new TextPrompt("   Password", passText);
+        passPrompt.changeAlpha(.5f);
+        passPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
         JButton login = new JButton("Login");
         login.setBounds(10, 80, 80, 25);
@@ -127,6 +133,7 @@ public class LoginGui implements ActionListener {
             This button opens up a Register window and sends the current login instance and collection
             to be used. Hides the current login GUI.
          */
+        /*
         JButton register = new JButton("Register");
         register.setBounds(100, 80, 90, 25);
         register.addActionListener(e -> {
@@ -135,6 +142,8 @@ public class LoginGui implements ActionListener {
             loginFrame.setVisible(false);
         });
         panel.add(register);
+
+         */
 
         JButton quit = new JButton("X");
         quit.setFont(new Font("Montserrat", Font.BOLD, 14));
