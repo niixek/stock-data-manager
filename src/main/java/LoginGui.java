@@ -90,7 +90,7 @@ public class LoginGui implements ActionListener {
 
 
         JLabel logLabel = new JLabel("Login");
-        logLabel.setBounds((loginFrame.getWidth()/2)-50, loginFrame.getHeight()/4, 100, 60);
+        logLabel.setBounds((loginFrame.getWidth()/2)-50, (loginFrame.getHeight()/4)-20, 100, 60);
         logLabel.setFont(new Font("Montserrat", Font.PLAIN, 40));
         logLabel.setForeground(Color.WHITE);
         panel.add(logLabel);
@@ -125,7 +125,9 @@ public class LoginGui implements ActionListener {
         passPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
         JButton login = new JButton("Login");
-        login.setBounds(50, 250, 80, 25);
+        login.setFont(new Font("Montserrat", Font.BOLD, 14));
+        login.setBounds(50, 250, 300, 30);
+        login.setBackground(Color.WHITE);
         login.addActionListener(attemptLogin);
         panel.add(login);
 
@@ -147,7 +149,7 @@ public class LoginGui implements ActionListener {
 
         JButton quit = new JButton("X");
         quit.setFont(new Font("Montserrat", Font.BOLD, 14));
-        quit.setBounds(210, 250, 50, 20);
+        quit.setBounds(210, 300, 50, 20);
         quit.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -157,7 +159,9 @@ public class LoginGui implements ActionListener {
         panel.add(quit);
 
         correct = new JLabel("");
-        correct.setBounds(10,110,300,25);
+        correct.setFont(new Font("Montserrat", Font.PLAIN, 14));
+        correct.setForeground(Color.WHITE);
+        correct.setBounds(50,120,300,25);
         panel.add(correct);
 
         loginFrame.setLocationRelativeTo(null);
