@@ -78,7 +78,7 @@ public class LoginGui implements ActionListener {
         };
 
         JPanel panel = new JPanel();
-        panel.setBackground(Color.DARK_GRAY);
+        panel.setBackground(new Color(52,52,52));
 
         loginFrame = new JFrame();
         loginFrame.setSize(400,350);
@@ -151,7 +151,10 @@ public class LoginGui implements ActionListener {
 
         JButton quit = new JButton("X");
         quit.setFont(new Font("Montserrat", Font.BOLD, 14));
-        quit.setBounds(210, 300, 50, 20);
+        quit.setBounds(350, 20, 50, 20);
+        quit.setForeground(Color.WHITE);
+        quit.setBackground(new Color(52,52,52));
+        quit.setBorder(BorderFactory.createEmptyBorder());
         quit.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
