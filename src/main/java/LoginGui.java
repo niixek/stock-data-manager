@@ -127,7 +127,9 @@ public class LoginGui implements ActionListener {
         JButton login = new JButton("Login");
         login.setFont(new Font("Montserrat", Font.BOLD, 14));
         login.setBounds(50, 250, 300, 30);
-        login.setBackground(Color.WHITE);
+        login.setForeground(Color.WHITE);
+        login.setBackground(new Color(197,76,76));
+        login.setBorder(BorderFactory.createEmptyBorder());
         login.addActionListener(attemptLogin);
         panel.add(login);
 
