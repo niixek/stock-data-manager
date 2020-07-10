@@ -102,6 +102,7 @@ public class LoginGui implements ActionListener {
         userText.setBorder(BorderFactory.createEmptyBorder());
         panel.add(userText);
 
+        //Allows for "ghost text" to disappear and reappear for username and password fields
         TextPrompt userPrompt = new TextPrompt("   Username", userText);
         userPrompt.changeAlpha(.5f);
         userPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
@@ -145,6 +146,7 @@ public class LoginGui implements ActionListener {
         });
         panel.add(register);
 
+        //Clicking the "X" in the gui should close out the login window
         JButton quit = new JButton("X");
         quit.setFont(new Font("Montserrat", Font.BOLD, 14));
         quit.setBounds(350, 20, 30, 20);

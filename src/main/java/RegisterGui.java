@@ -96,6 +96,7 @@ public class RegisterGui implements ActionListener{
         userText.setBorder(BorderFactory.createEmptyBorder());
         panel.add(userText);
 
+        //Allows for "ghost text" to disappear and reappear for username and password fields
         TextPrompt userPrompt = new TextPrompt("   Username", userText);
         userPrompt.changeAlpha(.5f);
         userPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
