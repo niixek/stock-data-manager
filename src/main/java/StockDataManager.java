@@ -4,11 +4,17 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-import javax.sound.sampled.Line;
-
+/*
+    This is the main class that runs the entire Stock Data Manager application
+ */
 public class StockDataManager {
     private static MongoCollection<Document> collection;
 
+    /*
+        mongoConnect attempts to connect to the mongoDB database that is requested, in this case
+        the SDMLoginDB, and return the data that is stored in it.
+        returns a MongoCollection<Document>, which is used to return data stored in the database
+     */
     public static MongoCollection<Document> mongoConnect() {
         MongoClient mongoClient = MongoClients.create();
         MongoDatabase database = mongoClient.getDatabase("SDMLoginDB");
