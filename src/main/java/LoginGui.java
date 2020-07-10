@@ -131,17 +131,19 @@ public class LoginGui implements ActionListener {
             This button opens up a Register window and sends the current login instance and collection
             to be used. Hides the current login GUI.
          */
-        /*
-        JButton register = new JButton("Register");
-        register.setBounds(100, 80, 90, 25);
+        JButton register = new JButton("Sign Up");
+        register.setBounds((loginFrame.getWidth()/2)-40, 290, 80, 30);
+        register.setFont(new Font("Montserrat", Font.BOLD, 14));
+        register.setForeground(Color.WHITE);
+        register.setBackground(new Color(52,52,52));
+        register.setBorder(BorderFactory.createEmptyBorder());
+        register.setFocusPainted(false);
         register.addActionListener(e -> {
             RegisterGui rg = new RegisterGui(usernames);
             rg.createNewUser(this);
             loginFrame.setVisible(false);
         });
         panel.add(register);
-
-         */
 
         JButton quit = new JButton("X");
         quit.setFont(new Font("Montserrat", Font.BOLD, 14));

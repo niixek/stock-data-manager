@@ -83,37 +83,66 @@ public class RegisterGui implements ActionListener{
 
         panel.setLayout(null);
 
-        JLabel registerLabel = new JLabel("Register");
-        registerLabel.setBounds((frame.getWidth()/2)-50, (frame.getHeight()/4)-20, 100, 60);
+        JLabel registerLabel = new JLabel("Sign Up");
+        registerLabel.setBounds((frame.getWidth()/2)-75, (frame.getHeight()/4)-20, 150, 60);
         registerLabel.setFont(new Font("Montserrat", Font.PLAIN, 40));
         registerLabel.setForeground(Color.WHITE);
         panel.add(registerLabel);
 
         userText = new JTextField(20);
-        userText.setBounds(100,20,165,25);
+        userText.setBounds(50,150,300,35);
+        userText.setFont(new Font("Montserrat", Font.PLAIN, 14));
         userText.addActionListener(attemptRegister);
+        userText.setBorder(BorderFactory.createEmptyBorder());
         panel.add(userText);
 
-
-
-        JLabel passLabel = new JLabel("Password");
-        passLabel.setBounds(10, 50, 80, 25);
-        panel.add(passLabel);
+        TextPrompt userPrompt = new TextPrompt("   Username", userText);
+        userPrompt.changeAlpha(.5f);
+        userPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
         passText = new JPasswordField(20);
-        passText.setBounds(100,50,165,25);
+        passText.setBounds(50,200,300,35);
+        passText.setFont(new Font("Montserrat", Font.PLAIN, 14));
         passText.addActionListener(attemptRegister);
+        passText.setBorder(BorderFactory.createEmptyBorder());
         panel.add(passText);
 
-        JButton register = new JButton("Register");
-        register.setBounds(10, 80, 90, 25);
+        TextPrompt passPrompt = new TextPrompt("   Password", passText);
+        passPrompt.changeAlpha(.5f);
+        passPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
+
+        JButton register = new JButton("Sign Up");
+        register.setFont(new Font("Montserrat", Font.BOLD, 14));
+        register.setBounds(50, 250, 300, 30);
+        register.setForeground(Color.WHITE);
+        register.setBackground(new Color(197,76,76));
+        register.setBorder(BorderFactory.createEmptyBorder());
+        register.setFocusPainted(false);
         register.addActionListener(attemptRegister);
         panel.add(register);
 
         correct = new JLabel("");
-        correct.setBounds(10,110,300,25);
+        correct.setFont(new Font("Montserrat", Font.PLAIN, 14));
+        correct.setForeground(Color.WHITE);
+        correct.setBounds(50,120,300,25);
         panel.add(correct);
 
+        //This button closes the register window and reopens the login window
+        JButton quit = new JButton("X");
+        quit.setFont(new Font("Montserrat", Font.BOLD, 14));
+        quit.setBounds(350, 20, 30, 20);
+        quit.setForeground(Color.WHITE);
+        quit.setBackground(new Color(52,52,52));
+        quit.setBorder(BorderFactory.createEmptyBorder());
+        quit.setFocusPainted(false);
+        quit.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                login.getFrame().setVisible(true);
+            }
+        });
+        panel.add(quit);
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
