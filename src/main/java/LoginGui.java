@@ -88,7 +88,6 @@ public class LoginGui implements ActionListener {
 
         panel.setLayout(null);
 
-
         JLabel logLabel = new JLabel("Login");
         logLabel.setBounds((loginFrame.getWidth()/2)-50, (loginFrame.getHeight()/4)-20, 100, 60);
         logLabel.setFont(new Font("Montserrat", Font.PLAIN, 40));

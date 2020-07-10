@@ -4,6 +4,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
+import javax.sound.sampled.Line;
+
 public class StockDataManager {
     private static MongoCollection<Document> collection;
 
@@ -17,7 +19,13 @@ public class StockDataManager {
     public static void main (String[] args) {
         collection = mongoConnect();
 
+        /*
         LoginGui lg = new LoginGui(collection);
         lg.login();
+
+         */
+
+        InformationGui ig = new InformationGui(collection, "kexin");
+        ig.enterInfo();
     }
 }

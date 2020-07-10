@@ -21,19 +21,38 @@ public class InformationGui implements ActionListener {
 
     public void enterInfo() {
         JPanel panel = new JPanel();
+        panel.setBackground(new Color(52,52,52));
 
         infoFrame = new JFrame();
-        infoFrame.setSize(800,400);
+        infoFrame.setSize(400,600);
         infoFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        infoFrame.setTitle("Stock Information");
+        infoFrame.setUndecorated(true);
         infoFrame.add(panel);
 
         panel.setLayout(null);
 
+        JLabel infoLabel = new JLabel("Enter Stock Information");
+        infoLabel.setBounds(40, 30, 325, 60);
+        infoLabel.setFont(new Font("Montserrat", Font.PLAIN, 30));
+        infoLabel.setForeground(Color.WHITE);
+        panel.add(infoLabel);
+
         JLabel dateLabel = new JLabel("Start Date");
         dateLabel.setBounds(10, 20, 80, 25);
-        dateLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
+        dateLabel.setFont(new Font("Montserrat", Font.PLAIN, 14));
         panel.add(dateLabel);
+
+        dateText = new JTextField(20);
+        dateText.setBounds(40,100,300,35);
+        dateText.setFont(new Font("Montserrat", Font.PLAIN, 14));
+        //dateText.addActionListener(attemptLogin);
+        dateText.setBorder(BorderFactory.createEmptyBorder());
+        panel.add(dateText);
+
+
+        /*
+
+
 
         dateText = new JTextField(20);
         dateText.setBounds(100,20,165,25);
@@ -47,37 +66,11 @@ public class InformationGui implements ActionListener {
         stockText.setBounds(100,60,165,25);
         panel.add(stockText);
 
-        /*
-        JButton login = new JButton("Login");
-        login.setBounds(10, 80, 80, 25);
-        login.addActionListener(attemptLogin);
-        panel.add(login);
-
-        JButton register = new JButton("Register");
-        register.setBounds(100, 80, 90, 25);
-        register.addActionListener(e -> {
-            RegisterGui rg = new RegisterGui(usernames);
-            rg.createNewUser(this);
-            loginFrame.setVisible(false);
-        });
-        panel.add(register);
-
-        correct = new JLabel("");
-        correct.setBounds(10,110,300,25);
-        panel.add(correct);
-
          */
 
         infoFrame.setLocationRelativeTo(null);
         infoFrame.setVisible(true);
     }
-
-
-
-
-
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
