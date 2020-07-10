@@ -2,6 +2,7 @@ import com.mongodb.client.*;
 import org.bson.Document;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -72,23 +73,28 @@ public class RegisterGui implements ActionListener{
             }
         };
         JPanel panel = new JPanel();
+        panel.setBackground(new Color(52,52,52));
 
         frame = new JFrame();
-        frame.setSize(400,200);
+        frame.setSize(400,350);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Register a New Account");
+        frame.setUndecorated(true);
         frame.add(panel);
 
         panel.setLayout(null);
 
-        JLabel userLabel = new JLabel("Username");
-        userLabel.setBounds(10, 20, 80, 25);
-        panel.add(userLabel);
+        JLabel registerLabel = new JLabel("Register");
+        registerLabel.setBounds((frame.getWidth()/2)-50, (frame.getHeight()/4)-20, 100, 60);
+        registerLabel.setFont(new Font("Montserrat", Font.PLAIN, 40));
+        registerLabel.setForeground(Color.WHITE);
+        panel.add(registerLabel);
 
         userText = new JTextField(20);
         userText.setBounds(100,20,165,25);
         userText.addActionListener(attemptRegister);
         panel.add(userText);
+
+
 
         JLabel passLabel = new JLabel("Password");
         passLabel.setBounds(10, 50, 80, 25);

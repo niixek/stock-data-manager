@@ -106,13 +106,6 @@ public class LoginGui implements ActionListener {
         userPrompt.changeAlpha(.5f);
         userPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
-        /*
-        JLabel passLabel = new JLabel("Password");
-        passLabel.setBounds(10, 50, 80, 25);
-        panel.add(passLabel);
-
-         */
-
         passText = new JPasswordField(20);
         passText.setBounds(50,200,300,35);
         passText.setFont(new Font("Montserrat", Font.PLAIN, 14));
@@ -130,6 +123,7 @@ public class LoginGui implements ActionListener {
         login.setForeground(Color.WHITE);
         login.setBackground(new Color(197,76,76));
         login.setBorder(BorderFactory.createEmptyBorder());
+        login.setFocusPainted(false);
         login.addActionListener(attemptLogin);
         panel.add(login);
 
@@ -151,10 +145,11 @@ public class LoginGui implements ActionListener {
 
         JButton quit = new JButton("X");
         quit.setFont(new Font("Montserrat", Font.BOLD, 14));
-        quit.setBounds(350, 20, 50, 20);
+        quit.setBounds(350, 20, 30, 20);
         quit.setForeground(Color.WHITE);
         quit.setBackground(new Color(52,52,52));
         quit.setBorder(BorderFactory.createEmptyBorder());
+        quit.setFocusPainted(false);
         quit.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -168,6 +163,7 @@ public class LoginGui implements ActionListener {
         correct.setForeground(Color.WHITE);
         correct.setBounds(50,120,300,25);
         panel.add(correct);
+
 
         loginFrame.setLocationRelativeTo(null);
         loginFrame.setVisible(true);
