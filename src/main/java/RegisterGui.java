@@ -15,6 +15,7 @@ public class RegisterGui implements ActionListener{
     private JTextField passText;
     private JLabel correct;
     private MongoCollection<Document> usernames;
+    private Color background = new Color(33,33,33);
 
     //The constructor takes in a MongoDB collection and assigns the "usernames" field to the collection
     public RegisterGui(MongoCollection<Document> collection) {
@@ -73,7 +74,7 @@ public class RegisterGui implements ActionListener{
             }
         };
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(52,52,52));
+        panel.setBackground(background);
 
         frame = new JFrame();
         frame.setSize(400,350);
@@ -133,7 +134,7 @@ public class RegisterGui implements ActionListener{
         quit.setFont(new Font("Montserrat", Font.BOLD, 14));
         quit.setBounds(350, 20, 30, 20);
         quit.setForeground(Color.WHITE);
-        quit.setBackground(new Color(52,52,52));
+        quit.setBackground(background);
         quit.setBorder(BorderFactory.createEmptyBorder());
         quit.setFocusPainted(false);
         quit.addActionListener(new AbstractAction() {

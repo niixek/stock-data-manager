@@ -12,6 +12,7 @@ public class InformationGui implements ActionListener {
     private JTextField stockText;
     private MongoCollection<Document> usernames;
     private String username;
+    private Color background = new Color(33,33,33);
 
     public InformationGui(MongoCollection<Document> collection, String user) {
         usernames = collection;
@@ -21,7 +22,7 @@ public class InformationGui implements ActionListener {
 
     public void enterInfo() {
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(52,52,52));
+        panel.setBackground(new Color(33,33,33));
 
         infoFrame = new JFrame();
         infoFrame.setSize(400,600);

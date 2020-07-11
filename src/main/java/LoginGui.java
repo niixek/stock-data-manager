@@ -17,6 +17,7 @@ public class LoginGui implements ActionListener {
     private JTextField passText;
     private JLabel correct;
     private MongoCollection<Document> usernames;
+    private Color background = new Color(33,33,33);
 
     //The constructor takes in a MongoDB collection and assigns the "usernames" field to the collection
     public LoginGui(MongoCollection<Document> collection) {
@@ -78,7 +79,7 @@ public class LoginGui implements ActionListener {
         };
 
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(52,52,52));
+        panel.setBackground(background);
 
         loginFrame = new JFrame();
         loginFrame.setSize(400,350);
@@ -135,7 +136,7 @@ public class LoginGui implements ActionListener {
         register.setBounds((loginFrame.getWidth()/2)-40, 290, 80, 30);
         register.setFont(new Font("Montserrat", Font.BOLD, 14));
         register.setForeground(Color.WHITE);
-        register.setBackground(new Color(52,52,52));
+        register.setBackground(background);
         register.setBorder(BorderFactory.createEmptyBorder());
         register.setFocusPainted(false);
         register.addActionListener(e -> {
@@ -150,7 +151,7 @@ public class LoginGui implements ActionListener {
         quit.setFont(new Font("Montserrat", Font.BOLD, 14));
         quit.setBounds(350, 20, 30, 20);
         quit.setForeground(Color.WHITE);
-        quit.setBackground(new Color(52,52,52));
+        quit.setBackground(background);
         quit.setBorder(BorderFactory.createEmptyBorder());
         quit.setFocusPainted(false);
         quit.addActionListener(new AbstractAction() {
