@@ -26,8 +26,8 @@ public class StockDataManager {
         collection = mongoConnect();
 
         //Run starting with the login GUI
-        //LoginGui lg = new LoginGui(collection);
-        //lg.login();
+        LoginGui lg = new LoginGui(collection);
+        lg.login();
 
         //Run starting with register GUI
         //LoginGui lg2 = new LoginGui(collection);
@@ -35,8 +35,8 @@ public class StockDataManager {
         //rg.createNewUser(lg2);
 
         //Run starting with the information GUI and a username
-        InformationGui ig = new InformationGui(collection, "kexin");
-        ig.enterInfo();
+        //InformationGui ig = new InformationGui(collection, "kexin");
+        //ig.enterInfo();
 
     }
 }

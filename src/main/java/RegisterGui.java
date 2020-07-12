@@ -2,6 +2,7 @@ import com.mongodb.client.*;
 import org.bson.Document;
 
 import javax.swing.*;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ public class RegisterGui implements ActionListener{
     private JLabel correct;
     private MongoCollection<Document> usernames;
     private Color background = new Color(33,33,33);
+    private MatteBorder border = BorderFactory.createMatteBorder(0,0,1,0, Color.WHITE);
 
     //The constructor takes in a MongoDB collection and assigns the "usernames" field to the collection
     public RegisterGui(MongoCollection<Document> collection) {
@@ -92,25 +94,29 @@ public class RegisterGui implements ActionListener{
 
         userText = new JTextField(20);
         userText.setBounds(50,150,300,35);
-        userText.setFont(new Font("Montserrat", Font.PLAIN, 14));
+        userText.setFont(new Font("Montserrat", Font.PLAIN, 15));
         userText.addActionListener(attemptRegister);
-        userText.setBorder(BorderFactory.createEmptyBorder());
+        userText.setBackground(background);
+        userText.setForeground(Color.WHITE);
+        userText.setBorder(border);
         panel.add(userText);
 
         //Allows for "ghost text" to disappear and reappear for username and password fields
-        TextPrompt userPrompt = new TextPrompt("   Username", userText);
-        userPrompt.changeAlpha(.5f);
+        TextPrompt userPrompt = new TextPrompt("Username", userText);
+        userPrompt.changeAlpha(.6f);
         userPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
         passText = new JPasswordField(20);
         passText.setBounds(50,200,300,35);
-        passText.setFont(new Font("Montserrat", Font.PLAIN, 14));
+        passText.setFont(new Font("Montserrat", Font.PLAIN, 15));
         passText.addActionListener(attemptRegister);
-        passText.setBorder(BorderFactory.createEmptyBorder());
+        passText.setBackground(background);
+        passText.setForeground(Color.WHITE);
+        passText.setBorder(border);
         panel.add(passText);
 
-        TextPrompt passPrompt = new TextPrompt("   Password", passText);
-        passPrompt.changeAlpha(.5f);
+        TextPrompt passPrompt = new TextPrompt("Password", passText);
+        passPrompt.changeAlpha(.6f);
         passPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
         JButton register = new JButton("Sign Up");
@@ -124,9 +130,9 @@ public class RegisterGui implements ActionListener{
         panel.add(register);
 
         correct = new JLabel("");
-        correct.setFont(new Font("Montserrat", Font.PLAIN, 14));
+        correct.setFont(new Font("Montserrat", Font.BOLD, 14));
         correct.setForeground(Color.WHITE);
-        correct.setBounds(50,120,300,25);
+        correct.setBounds(50,125,300,25);
         panel.add(correct);
 
         //This button closes the register window and reopens the login window
