@@ -3,6 +3,7 @@ import org.bson.Document;
 
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ public class InformationGui implements ActionListener {
     private JTextField dateText;
     private JTextField stockText;
     private JComboBox<String> month;
+    private JComboBox<String> day;
     private MongoCollection<Document> usernames;
     private String username;
     private Color background = new Color(33,33,33);
@@ -41,23 +43,24 @@ public class InformationGui implements ActionListener {
         infoLabel.setForeground(Color.WHITE);
         panel.add(infoLabel);
 
-        JLabel dateLabel = new JLabel("Start Date");
-        dateLabel.setBounds(40, 90, 80, 25);
+        JLabel dateLabel = new JLabel("Start Date:");
+        dateLabel.setBounds(40, 90, 80, 30);
         dateLabel.setForeground(Color.WHITE);
         dateLabel.setFont(new Font("Montserrat", Font.PLAIN, 16));
         panel.add(dateLabel);
 
         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
                             "October", "November", "December"};
+        String[] days = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
 
         month = new JComboBox<>(months);
-        month.setBounds(40,115,300,30);
+        month.setBounds(40,120,105,35);
         month.setFont(new Font("Montserrat", Font.PLAIN, 14));
-        month.setBackground(Color.WHITE);
-        month.setBorder(border);
+        month.setBackground(background);
+        month.setForeground(Color.WHITE);
+        month.setUI(new BasicComboBoxUI());
+        //month.setBorder(border);
         panel.add(month);
-
-
 
         dateText = new JTextField(20);
         dateText.setBounds(40,160,300,35);
