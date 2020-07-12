@@ -7,6 +7,8 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.Hashtable;
 
 public class InformationGui implements ActionListener {
     private JFrame infoFrame;
@@ -14,6 +16,7 @@ public class InformationGui implements ActionListener {
     private JTextField stockText;
     private JComboBox<String> month;
     private JComboBox<String> day;
+    private Hashtable<String, String[]> daysMap = new Hashtable<>();
     private MongoCollection<Document> usernames;
     private String username;
     private Color background = new Color(33,33,33);
@@ -23,7 +26,6 @@ public class InformationGui implements ActionListener {
         usernames = collection;
         username = user;
     }
-
 
     public void enterInfo() {
         JPanel panel = new JPanel();
@@ -49,27 +51,63 @@ public class InformationGui implements ActionListener {
         dateLabel.setFont(new Font("Montserrat", Font.PLAIN, 16));
         panel.add(dateLabel);
 
+        //months and days are used for the JComboBoxes to select a date
         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
                             "October", "November", "December"};
-        String[] days = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+        String[] days = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
+                         "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
+
+        /*
+            This creates 3 subarrays for the possible number of days for each corresponding month. They are put
+            into a Hashtable, which is later used to obtain the correct number of days for the selected month.
+         */
+        String[] thirty = Arrays.stream(days, 0, 30).toArray(String[]::new);
+        daysMap.put(months[3], thirty);
+        daysMap.put(months[5], thirty);
+        daysMap.put(months[8], thirty);
+        daysMap.put(months[10], thirty);
+
+        String[] twentyNine = Arrays.stream(days, 0, 29).toArray(String[]::new);
+        daysMap.put(months[1], twentyNine);
+
+        String[] thirtyOne = Arrays.stream(days, 0, 31).toArray(String[]::new);
+        daysMap.put(months[0], thirtyOne);
+        daysMap.put(months[2], thirtyOne);
+        daysMap.put(months[4], thirtyOne);
+        daysMap.put(months[6], thirtyOne);
+        daysMap.put(months[7], thirtyOne);
+        daysMap.put(months[9], thirtyOne);
+        daysMap.put(months[11], thirtyOne);
 
         month = new JComboBox<>(months);
-        month.setBounds(40,120,105,35);
-        month.setFont(new Font("Montserrat", Font.PLAIN, 14));
+        month.setBounds(40,120,115,35);
+        month.setFont(new Font("Montserrat", Font.PLAIN, 15));
         month.setBackground(background);
         month.setForeground(Color.WHITE);
         month.setUI(new BasicComboBoxUI());
-        //month.setBorder(border);
-        panel.add(month);
 
-        dateText = new JTextField(20);
-        dateText.setBounds(40,160,300,35);
-        dateText.setFont(new Font("Montserrat", Font.PLAIN, 14));
-        //dateText.addActionListener(attemptLogin);
-        dateText.setBackground(background);
-        dateText.setForeground(Color.WHITE);
-        dateText.setBorder(border);
-        panel.add(dateText);
+        day = new JComboBox<>(days);
+        day.setBounds(170,120,60,35);
+        day.setFont(new Font("Montserrat", Font.PLAIN, 15));
+        day.setBackground(background);
+        day.setForeground(Color.WHITE);
+        day.setUI(new BasicComboBoxUI());
+
+        //dateListener allows the day JComboBox to change the range of possible number of days based on the selected month
+        Action dateListener = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String choice = (String) month.getSelectedItem();
+                assert choice != null;
+                Object obj = daysMap.get(choice);
+
+                day.setModel(new DefaultComboBoxModel<>((String[])obj));
+            }
+        };
+
+        month.addActionListener(dateListener);
+        panel.add(month);
+        panel.add(day);
 
         //Clicking the "X" in the gui should close out the info window
         JButton quit = new JButton("X");
