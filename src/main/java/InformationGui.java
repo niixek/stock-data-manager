@@ -16,6 +16,7 @@ public class InformationGui implements ActionListener {
     private JTextField stockText;
     private JComboBox<String> month;
     private JComboBox<String> day;
+    private JComboBox<String> year;
     private Hashtable<String, String[]> daysMap = new Hashtable<>();
     private MongoCollection<Document> usernames;
     private String username;
@@ -57,6 +58,9 @@ public class InformationGui implements ActionListener {
         String[] days = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
                          "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
 
+        String[] years = {"2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017",
+                "2018", "2019", "2020"};
+
         /*
             This creates 3 subarrays for the possible number of days for each corresponding month. They are put
             into a Hashtable, which is later used to obtain the correct number of days for the selected month.
@@ -93,6 +97,13 @@ public class InformationGui implements ActionListener {
         day.setForeground(Color.WHITE);
         day.setUI(new BasicComboBoxUI());
 
+        year = new JComboBox<>(years);
+        year.setBounds(250,120,80,35);
+        year.setFont(new Font("Montserrat", Font.PLAIN, 15));
+        year.setBackground(background);
+        year.setForeground(Color.WHITE);
+        year.setUI(new BasicComboBoxUI());
+
         //dateListener allows the day JComboBox to change the range of possible number of days based on the selected month
         Action dateListener = new AbstractAction() {
             @Override
@@ -108,6 +119,7 @@ public class InformationGui implements ActionListener {
         month.addActionListener(dateListener);
         panel.add(month);
         panel.add(day);
+        panel.add(year);
 
         //Clicking the "X" in the gui should close out the info window
         JButton quit = new JButton("X");
