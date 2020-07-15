@@ -12,7 +12,6 @@ import java.util.Hashtable;
 
 public class InformationGui implements ActionListener {
     private JFrame infoFrame;
-    private JTextField dateText;
     private JTextField stockText;
     private JComboBox<String> month;
     private JComboBox<String> day;
@@ -116,6 +115,19 @@ public class InformationGui implements ActionListener {
             }
         };
 
+        stockText = new JTextField(20);
+        stockText.setBounds(40,170,300,35);
+        stockText.setFont(new Font("Montserrat", Font.PLAIN, 15));
+        stockText.setBackground(background);
+        stockText.setForeground(Color.WHITE);
+        stockText.setBorder(border);
+        panel.add(stockText);
+
+        //Allows for "ghost text" to disappear and reappear for username and password fields
+        TextPrompt userPrompt = new TextPrompt("Stock Name", stockText);
+        userPrompt.changeAlpha(.6f);
+        userPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
+
         month.addActionListener(dateListener);
         panel.add(month);
         panel.add(day);
@@ -137,23 +149,6 @@ public class InformationGui implements ActionListener {
         });
         panel.add(quit);
 
-        /*
-
-
-
-        dateText = new JTextField(20);
-        dateText.setBounds(100,20,165,25);
-        panel.add(dateText);
-
-        JLabel stockLabel = new JLabel("Stock Name");
-        stockLabel.setBounds(10, 60, 80, 25);
-        panel.add(stockLabel);
-
-        stockText = new JTextField(20);
-        stockText.setBounds(100,60,165,25);
-        panel.add(stockText);
-
-         */
 
         infoFrame.setLocationRelativeTo(null);
         infoFrame.setVisible(true);
