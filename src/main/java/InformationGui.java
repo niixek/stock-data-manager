@@ -14,6 +14,7 @@ public class InformationGui implements ActionListener {
     private JFrame infoFrame;
     private JTextField stockText;
     private JTextField quantText;
+    private JTextField priceText;
     private JComboBox<String> month;
     private JComboBox<String> day;
     private JComboBox<String> year;
@@ -132,6 +133,14 @@ public class InformationGui implements ActionListener {
         quantText.setBorder(border);
         panel.add(quantText);
 
+        priceText = new JTextField(20);
+        priceText.setBounds(40,270,300,35);
+        priceText.setFont(new Font("Montserrat", Font.PLAIN, 15));
+        priceText.setBackground(background);
+        priceText.setForeground(Color.WHITE);
+        priceText.setBorder(border);
+        panel.add(priceText);
+
         //Allows for "ghost text" to disappear and reappear for username and password fields
         TextPrompt stockPrompt = new TextPrompt("Stock Name", stockText);
         stockPrompt.changeAlpha(.6f);
@@ -140,6 +149,10 @@ public class InformationGui implements ActionListener {
         TextPrompt quantPrompt = new TextPrompt("Quantity", quantText);
         quantPrompt.changeAlpha(.6f);
         quantPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
+
+        TextPrompt pricePrompt = new TextPrompt("Initial Price ($)", priceText);
+        pricePrompt.changeAlpha(.6f);
+        pricePrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
         month.addActionListener(dateListener);
         panel.add(month);
