@@ -13,6 +13,7 @@ import java.util.Hashtable;
 public class InformationGui implements ActionListener {
     private JFrame infoFrame;
     private JTextField stockText;
+    private JTextField quantText;
     private JComboBox<String> month;
     private JComboBox<String> day;
     private JComboBox<String> year;
@@ -123,10 +124,22 @@ public class InformationGui implements ActionListener {
         stockText.setBorder(border);
         panel.add(stockText);
 
+        quantText = new JTextField(20);
+        quantText.setBounds(40,220,300,35);
+        quantText.setFont(new Font("Montserrat", Font.PLAIN, 15));
+        quantText.setBackground(background);
+        quantText.setForeground(Color.WHITE);
+        quantText.setBorder(border);
+        panel.add(quantText);
+
         //Allows for "ghost text" to disappear and reappear for username and password fields
-        TextPrompt userPrompt = new TextPrompt("Stock Name", stockText);
-        userPrompt.changeAlpha(.6f);
-        userPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
+        TextPrompt stockPrompt = new TextPrompt("Stock Name", stockText);
+        stockPrompt.changeAlpha(.6f);
+        stockPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
+
+        TextPrompt quantPrompt = new TextPrompt("Quantity", quantText);
+        quantPrompt.changeAlpha(.6f);
+        quantPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
         month.addActionListener(dateListener);
         panel.add(month);
