@@ -134,16 +134,28 @@ public class InformationGui implements ActionListener {
         quantText.setBorder(border);
         panel.add(quantText);
 
+        JLabel sign1 = new JLabel("$");
+        sign1.setBounds(40,270,20,35);
+        sign1.setFont(new Font("Montserrat", Font.PLAIN, 18));
+        sign1.setForeground(Color.WHITE);
+        panel.add(sign1);
+
         priceText = new JTextField(20);
-        priceText.setBounds(40,270,300,35);
+        priceText.setBounds(60,270,280,35);
         priceText.setFont(new Font("Montserrat", Font.PLAIN, 15));
         priceText.setBackground(background);
         priceText.setForeground(Color.WHITE);
         priceText.setBorder(border);
         panel.add(priceText);
 
+        JLabel sign2 = new JLabel("$");
+        sign2.setBounds(40,320,20,35);
+        sign2.setFont(new Font("Montserrat", Font.PLAIN, 18));
+        sign2.setForeground(Color.WHITE);
+        panel.add(sign2);
+
         fundText = new JTextField(20);
-        fundText.setBounds(40,320,300,35);
+        fundText.setBounds(60,320,280,35);
         fundText.setFont(new Font("Montserrat", Font.PLAIN, 15));
         fundText.setBackground(background);
         fundText.setForeground(Color.WHITE);
@@ -159,11 +171,11 @@ public class InformationGui implements ActionListener {
         quantPrompt.changeAlpha(.6f);
         quantPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
-        TextPrompt pricePrompt = new TextPrompt("Initial Stock Price ($)", priceText);
+        TextPrompt pricePrompt = new TextPrompt("Initial Stock Price", priceText);
         pricePrompt.changeAlpha(.6f);
         pricePrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
-        TextPrompt fundPrompt = new TextPrompt("Initial Funds ($)", fundText);
+        TextPrompt fundPrompt = new TextPrompt("Initial Funds", fundText);
         fundPrompt.changeAlpha(.6f);
         fundPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
