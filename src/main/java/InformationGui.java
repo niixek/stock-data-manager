@@ -35,7 +35,7 @@ public class InformationGui implements ActionListener {
         panel.setBackground(background);
 
         infoFrame = new JFrame();
-        infoFrame.setSize(400,600);
+        infoFrame.setSize(400,450);
         infoFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         infoFrame.setUndecorated(true);
         infoFrame.add(panel);
@@ -118,8 +118,14 @@ public class InformationGui implements ActionListener {
             }
         };
 
+        month.addActionListener(dateListener);
+        panel.add(month);
+        panel.add(day);
+        panel.add(year);
+
+
         stockText = new JTextField(20);
-        stockText.setBounds(40,170,300,35);
+        stockText.setBounds(40,170,320,35);
         stockText.setFont(new Font("Montserrat", Font.PLAIN, 15));
         stockText.setBackground(background);
         stockText.setForeground(Color.WHITE);
@@ -127,7 +133,7 @@ public class InformationGui implements ActionListener {
         panel.add(stockText);
 
         quantText = new JTextField(20);
-        quantText.setBounds(40,220,300,35);
+        quantText.setBounds(40,220,320,35);
         quantText.setFont(new Font("Montserrat", Font.PLAIN, 15));
         quantText.setBackground(background);
         quantText.setForeground(Color.WHITE);
@@ -141,7 +147,7 @@ public class InformationGui implements ActionListener {
         panel.add(sign1);
 
         priceText = new JTextField(20);
-        priceText.setBounds(60,270,280,35);
+        priceText.setBounds(60,270,300,35);
         priceText.setFont(new Font("Montserrat", Font.PLAIN, 15));
         priceText.setBackground(background);
         priceText.setForeground(Color.WHITE);
@@ -155,7 +161,7 @@ public class InformationGui implements ActionListener {
         panel.add(sign2);
 
         fundText = new JTextField(20);
-        fundText.setBounds(60,320,280,35);
+        fundText.setBounds(60,320,300,35);
         fundText.setFont(new Font("Montserrat", Font.PLAIN, 15));
         fundText.setBackground(background);
         fundText.setForeground(Color.WHITE);
@@ -179,10 +185,14 @@ public class InformationGui implements ActionListener {
         fundPrompt.changeAlpha(.6f);
         fundPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
-        month.addActionListener(dateListener);
-        panel.add(month);
-        panel.add(day);
-        panel.add(year);
+        JButton login = new JButton("Continue");
+        login.setFont(new Font("Montserrat", Font.BOLD, 14));
+        login.setBounds(40, 380, 320, 30);
+        login.setForeground(Color.WHITE);
+        login.setBackground(new Color(197,76,76));
+        login.setBorder(BorderFactory.createEmptyBorder());
+        login.setFocusPainted(false);
+        panel.add(login);
 
         //Clicking the "X" in the gui should close out the info window
         JButton quit = new JButton("X");
