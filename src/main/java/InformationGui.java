@@ -219,6 +219,10 @@ public class InformationGui implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String[] date = {(String) month.getSelectedItem(), (String) day.getSelectedItem(), (String) year.getSelectedItem()};
+        String stock = stockText.getText();
+        int quantity = Integer.parseInt(quantText.getText());
         System.out.println(Arrays.toString(date));
+        System.out.println(stock);
+        System.out.println(quantity);
     }
 }
