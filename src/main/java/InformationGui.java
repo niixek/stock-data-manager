@@ -156,7 +156,7 @@ public class InformationGui implements ActionListener {
         ((AbstractDocument)priceText.getDocument()).setDocumentFilter(new DocumentFilter(){
             //regex for currency found online
             //^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*\.[0-9]{2}$
-            Pattern regEx = Pattern.compile("");
+            Pattern regEx = Pattern.compile("^(\\d+|\\d*\\.\\d+)$");
 
             @Override
             public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
