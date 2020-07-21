@@ -185,14 +185,15 @@ public class InformationGui implements ActionListener {
         fundPrompt.changeAlpha(.6f);
         fundPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
-        JButton login = new JButton("Continue");
-        login.setFont(new Font("Montserrat", Font.BOLD, 14));
-        login.setBounds(40, 380, 320, 30);
-        login.setForeground(Color.WHITE);
-        login.setBackground(new Color(197,76,76));
-        login.setBorder(BorderFactory.createEmptyBorder());
-        login.setFocusPainted(false);
-        panel.add(login);
+        JButton conbutton = new JButton("Continue");
+        conbutton.setFont(new Font("Montserrat", Font.BOLD, 14));
+        conbutton.setBounds(40, 380, 320, 30);
+        conbutton.setForeground(Color.WHITE);
+        conbutton.setBackground(new Color(197,76,76));
+        conbutton.setBorder(BorderFactory.createEmptyBorder());
+        conbutton.setFocusPainted(false);
+        conbutton.addActionListener(this);
+        panel.add(conbutton);
 
         //Clicking the "X" in the gui should close out the info window
         JButton quit = new JButton("X");
@@ -217,6 +218,7 @@ public class InformationGui implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //String date
+        String[] date = {(String) month.getSelectedItem(), (String) day.getSelectedItem(), (String) year.getSelectedItem()};
+        System.out.println(Arrays.toString(date));
     }
 }
