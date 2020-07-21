@@ -4,17 +4,11 @@ import org.bson.Document;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Hashtable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class InformationGui implements ActionListener {
     private JFrame infoFrame;
@@ -92,21 +86,21 @@ public class InformationGui implements ActionListener {
         daysMap.put(months[11], thirtyOne);
 
         month = new JComboBox<>(months);
-        month.setBounds(40,120,115,35);
+        month.setBounds(40,125,115,35);
         month.setFont(new Font("Montserrat", Font.PLAIN, 15));
         month.setBackground(background);
         month.setForeground(Color.WHITE);
         month.setUI(new BasicComboBoxUI());
 
         day = new JComboBox<>(days);
-        day.setBounds(170,120,60,35);
+        day.setBounds(170,125,60,35);
         day.setFont(new Font("Montserrat", Font.PLAIN, 15));
         day.setBackground(background);
         day.setForeground(Color.WHITE);
         day.setUI(new BasicComboBoxUI());
 
         year = new JComboBox<>(years);
-        year.setBounds(250,120,80,35);
+        year.setBounds(250,125,80,35);
         year.setFont(new Font("Montserrat", Font.PLAIN, 15));
         year.setBackground(background);
         year.setForeground(Color.WHITE);
@@ -153,20 +147,6 @@ public class InformationGui implements ActionListener {
         panel.add(sign1);
 
         priceText = new JTextField(20);
-        ((AbstractDocument)priceText.getDocument()).setDocumentFilter(new DocumentFilter(){
-            //regex for currency found online
-            //^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*\.[0-9]{2}$
-            Pattern regEx = Pattern.compile("^(\\d+|\\d*\\.\\d+)$");
-
-            @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                Matcher matcher = regEx.matcher(text);
-                if(!matcher.matches()){
-                    return;
-                }
-                super.replace(fb, offset, length, text, attrs);
-            }
-        });
         priceText.setBounds(60,270,300,35);
         priceText.setFont(new Font("Montserrat", Font.PLAIN, 15));
         priceText.setBackground(background);
@@ -237,6 +217,6 @@ public class InformationGui implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        //String date
     }
 }
