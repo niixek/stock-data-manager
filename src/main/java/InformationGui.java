@@ -4,11 +4,17 @@ import org.bson.Document;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class InformationGui implements ActionListener {
     private JFrame infoFrame;
@@ -147,6 +153,20 @@ public class InformationGui implements ActionListener {
         panel.add(sign1);
 
         priceText = new JTextField(20);
+        ((AbstractDocument)priceText.getDocument()).setDocumentFilter(new DocumentFilter(){
+            //regex for currency found online
+            //^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*\.[0-9]{2}$
+            Pattern regEx = Pattern.compile("");
+
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                Matcher matcher = regEx.matcher(text);
+                if(!matcher.matches()){
+                    return;
+                }
+                super.replace(fb, offset, length, text, attrs);
+            }
+        });
         priceText.setBounds(60,270,300,35);
         priceText.setFont(new Font("Montserrat", Font.PLAIN, 15));
         priceText.setBackground(background);
