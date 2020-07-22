@@ -11,8 +11,11 @@ import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -243,9 +246,12 @@ public class InformationGui implements ActionListener {
         String price = priceText.getText();
         String funds = fundText.getText();
 
-        //Pattern regEx Pattern.compile()
-
-
+        Number number = null;
+        try {
+            number = NumberFormat.getCurrencyInstance(Locale.US).parse(price);
+        } catch (ParseException ex) {
+            System.out.println("not valid currency");
+        }
 
 
         System.out.println(Arrays.toString(date));
