@@ -4,11 +4,17 @@ import org.bson.Document;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class InformationGui implements ActionListener {
     private JFrame infoFrame;
@@ -133,6 +139,19 @@ public class InformationGui implements ActionListener {
         panel.add(stockText);
 
         quantText = new JTextField(20);
+        //Code gotten from online, makes it so that only numbers can be typed
+        ((AbstractDocument)quantText.getDocument()).setDocumentFilter(new DocumentFilter(){
+            Pattern regEx = Pattern.compile("\\d*");
+
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                Matcher matcher = regEx.matcher(text);
+                if(!matcher.matches()){
+                    return;
+                }
+                super.replace(fb, offset, length, text, attrs);
+            }
+        });
         quantText.setBounds(40,220,320,35);
         quantText.setFont(new Font("Montserrat", Font.PLAIN, 15));
         quantText.setBackground(background);
