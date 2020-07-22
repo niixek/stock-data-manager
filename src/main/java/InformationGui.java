@@ -196,11 +196,11 @@ public class InformationGui implements ActionListener {
         quantPrompt.changeAlpha(.6f);
         quantPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
-        TextPrompt pricePrompt = new TextPrompt("Initial Stock Price", priceText);
+        TextPrompt pricePrompt = new TextPrompt("Initial Stock Price (ex: 123.45)", priceText);
         pricePrompt.changeAlpha(.6f);
         pricePrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
-        TextPrompt fundPrompt = new TextPrompt("Initial Funds", fundText);
+        TextPrompt fundPrompt = new TextPrompt("Initial Funds (ex: 123.45)", fundText);
         fundPrompt.changeAlpha(.6f);
         fundPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
@@ -240,6 +240,14 @@ public class InformationGui implements ActionListener {
         String[] date = {(String) month.getSelectedItem(), (String) day.getSelectedItem(), (String) year.getSelectedItem()};
         String stock = stockText.getText();
         int quantity = Integer.parseInt(quantText.getText());
+        String price = priceText.getText();
+        String funds = fundText.getText();
+
+        //Pattern regEx Pattern.compile()
+
+
+
+
         System.out.println(Arrays.toString(date));
         System.out.println(stock);
         System.out.println(quantity);
