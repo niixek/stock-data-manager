@@ -242,7 +242,13 @@ public class InformationGui implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String[] date = {(String) month.getSelectedItem(), (String) day.getSelectedItem(), (String) year.getSelectedItem()};
         String stock = stockText.getText();
-        int quantity = Integer.parseInt(quantText.getText());
+        int quantity = 0;
+        try {
+            quantity = Integer.parseInt(quantText.getText());
+        } catch (NumberFormatException nfe) {
+            System.out.println("enter a quantity");
+        }
+
         String price = priceText.getText();
         String funds = fundText.getText();
 
