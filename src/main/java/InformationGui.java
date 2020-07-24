@@ -11,11 +11,8 @@ import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Hashtable;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -252,16 +249,20 @@ public class InformationGui implements ActionListener {
         String price = priceText.getText();
         String funds = fundText.getText();
 
-        Number number = null;
-        try {
-            number = NumberFormat.getCurrencyInstance(Locale.US).parse(price);
-        } catch (ParseException ex) {
+        double priceConverted;
+
+        Pattern regex = Pattern.compile("^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*\\.[0-9]{2}$");
+        Matcher matcher = regex.matcher(price);
+
+        //System.out.println(Arrays.toString(date));
+        //System.out.println(stock);
+        //System.out.println(quantity);
+        if(matcher.matches()) {
+            priceConverted = Double.parseDouble(price);
+            System.out.println("price: " + priceConverted);
+        }
+        else {
             System.out.println("not valid currency");
         }
-
-
-        System.out.println(Arrays.toString(date));
-        System.out.println(stock);
-        System.out.println(quantity);
     }
 }
