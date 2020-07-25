@@ -22,6 +22,7 @@ public class InformationGui implements ActionListener {
     private JTextField quantText;
     private JTextField priceText;
     private JTextField fundText;
+    private JLabel correct;
     private JComboBox<String> month;
     private JComboBox<String> day;
     private JComboBox<String> year;
@@ -41,7 +42,7 @@ public class InformationGui implements ActionListener {
         panel.setBackground(background);
 
         infoFrame = new JFrame();
-        infoFrame.setSize(400,450);
+        infoFrame.setSize(400,475);
         infoFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         infoFrame.setUndecorated(true);
         infoFrame.add(panel);
@@ -206,7 +207,7 @@ public class InformationGui implements ActionListener {
 
         JButton conbutton = new JButton("Continue");
         conbutton.setFont(new Font("Montserrat", Font.BOLD, 14));
-        conbutton.setBounds(40, 380, 320, 30);
+        conbutton.setBounds(40, 410, 320, 30);
         conbutton.setForeground(Color.WHITE);
         conbutton.setBackground(new Color(197,76,76));
         conbutton.setBorder(BorderFactory.createEmptyBorder());
@@ -230,6 +231,12 @@ public class InformationGui implements ActionListener {
         });
         panel.add(quit);
 
+        correct = new JLabel("");
+        correct.setFont(new Font("Montserrat", Font.BOLD, 14));
+        correct.setForeground(Color.WHITE);
+        correct.setBounds(40,370,300,25);
+        panel.add(correct);
+
 
         infoFrame.setLocationRelativeTo(null);
         infoFrame.setVisible(true);
@@ -243,7 +250,8 @@ public class InformationGui implements ActionListener {
         try {
             quantity = Integer.parseInt(quantText.getText());
         } catch (NumberFormatException nfe) {
-            System.out.println("enter a quantity");
+            correct.setText("Please enter a quantity.");
+            //System.out.println("enter a quantity");
         }
 
         String price = priceText.getText();
