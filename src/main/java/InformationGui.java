@@ -245,15 +245,8 @@ public class InformationGui implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String[] date = {(String) month.getSelectedItem(), (String) day.getSelectedItem(), (String) year.getSelectedItem()};
-        String stock = stockText.getText();
-        int quantity = 0;
-        try {
-            quantity = Integer.parseInt(quantText.getText());
-        } catch (NumberFormatException nfe) {
-            correct.setText("Please enter a quantity.");
-            //System.out.println("enter a quantity");
-        }
-
+        String stock = stockText.getText().trim();
+        int quantity = -1;
         String price = priceText.getText();
         String funds = fundText.getText();
 
@@ -264,10 +257,22 @@ public class InformationGui implements ActionListener {
         Matcher matcher = regex.matcher(price);
         Matcher matcher2 = regex.matcher(funds);
 
-        System.out.println(Arrays.toString(date));
-        System.out.println(stock);
-        System.out.println(quantity);
-        if(matcher.matches() && matcher2.matches()) {
+        try {
+            quantity = Integer.parseInt(quantText.getText());
+        } catch (NumberFormatException ignored) {
+        }
+        if (stock.length() == 0) {
+            correct.setText("Please enter a stock name.");
+        }
+        else if (quantity < 0) {
+            correct.setText("Please enter a quantity.");
+        }
+        else {
+            correct.setText("");
+        }
+
+
+        if (matcher.matches() && matcher2.matches()) {
             priceConverted = Double.parseDouble(price);
             fundsConverted = Double.parseDouble(funds);
             System.out.println("price: " + priceConverted);
