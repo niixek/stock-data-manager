@@ -35,7 +35,7 @@ public class StockDataManager {
         //rg.createNewUser(lg2);
 
         //Run starting with the information GUI and a username
-        InformationGui ig = new InformationGui(collection, "kexin");
+        InformationGui ig = new InformationGui(collection, "testname");
         ig.enterInfo();
 
     }

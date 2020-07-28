@@ -11,6 +11,7 @@ import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.regex.Matcher;
@@ -244,7 +245,10 @@ public class InformationGui implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String[] date = {(String) month.getSelectedItem(), (String) day.getSelectedItem(), (String) year.getSelectedItem()};
+        ArrayList<String> date = new ArrayList<>();
+        date.add((String) month.getSelectedItem());
+        date.add((String) day.getSelectedItem());
+        date.add((String) year.getSelectedItem());
         String stock = stockText.getText().trim();
         int quantity = -1;
         String price = priceText.getText();
@@ -271,9 +275,15 @@ public class InformationGui implements ActionListener {
             correct.setText("Please enter currency correctly.");
         }
         else {
+            correct.setText("");
+
             priceConverted = Double.parseDouble(price);
             fundsConverted = Double.parseDouble(funds);
-            correct.setText("");
+
+            Document search = new Document("username", username);
+            Document data = new Document("startDate", date).append("stock", stock).append("quantity", quantity).append("price", priceConverted).append("funds", fundsConverted);
+            Document update = new Document("$set", data);
+            usernames.updateOne(search, update);
         }
     }
 }
