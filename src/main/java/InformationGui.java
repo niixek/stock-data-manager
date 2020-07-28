@@ -267,19 +267,13 @@ public class InformationGui implements ActionListener {
         else if (quantity < 0) {
             correct.setText("Please enter a quantity.");
         }
-        else {
-            correct.setText("");
+        else if (!(matcher.matches() && matcher2.matches())) {
+            correct.setText("Please enter currency correctly.");
         }
-
-
-        if (matcher.matches() && matcher2.matches()) {
+        else {
             priceConverted = Double.parseDouble(price);
             fundsConverted = Double.parseDouble(funds);
-            System.out.println("price: " + priceConverted);
-            System.out.println("funds: " + fundsConverted);
-        }
-        else {
-            System.out.println("not valid currency");
+            correct.setText("");
         }
     }
 }
