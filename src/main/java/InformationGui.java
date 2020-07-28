@@ -284,6 +284,8 @@ public class InformationGui implements ActionListener {
             Document data = new Document("startDate", date).append("stock", stock).append("quantity", quantity).append("price", priceConverted).append("funds", fundsConverted);
             Document update = new Document("$set", data);
             usernames.updateOne(search, update);
+
+            infoFrame.dispose();
         }
     }
 }
