@@ -29,6 +29,12 @@ public class WelcomeGui implements ActionListener {
         welcomeFrame.setUndecorated(true);
         welcomeFrame.add(panel);
 
+        JLabel bigWelcome = new JLabel("Welcome");
+        bigWelcome.setBounds(50,50,350,80);
+        bigWelcome.setFont(new Font("Montserrat", Font.PLAIN, 80));
+        bigWelcome.setForeground(Color.WHITE);
+        panel.add(bigWelcome);
+
         panel.setLayout(null);
 
         welcomeFrame.setLocationRelativeTo(null);
