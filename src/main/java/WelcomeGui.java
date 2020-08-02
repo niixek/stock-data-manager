@@ -1,11 +1,14 @@
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class WelcomeGui implements ActionListener {
     private JFrame welcomeFrame;
@@ -35,9 +38,9 @@ public class WelcomeGui implements ActionListener {
         bigWelcome.setForeground(Color.WHITE);
         panel.add(bigWelcome);
 
-        Icon imageIcon = new ImageIcon("\\java\\squidward money.gif");
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/java/squidward money.gif").getImage().getScaledInstance(280, 210, Image.SCALE_DEFAULT));
         JLabel image = new JLabel(imageIcon);
-        image.setBounds(50, 150, 500, 375);
+        image.setBounds(50, 150, 280, 210);
         panel.add(image);
 
         panel.setLayout(null);
