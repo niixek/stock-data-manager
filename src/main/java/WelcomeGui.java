@@ -35,6 +35,11 @@ public class WelcomeGui implements ActionListener {
         bigWelcome.setForeground(Color.WHITE);
         panel.add(bigWelcome);
 
+        Icon imageIcon = new ImageIcon("\\java\\squidward money.gif");
+        JLabel image = new JLabel(imageIcon);
+        image.setBounds(50, 150, 500, 375);
+        panel.add(image);
+
         panel.setLayout(null);
 
         welcomeFrame.setLocationRelativeTo(null);
