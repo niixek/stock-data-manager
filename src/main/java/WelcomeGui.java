@@ -32,17 +32,33 @@ public class WelcomeGui implements ActionListener {
         welcomeFrame.add(panel);
 
         JLabel bigWelcome = new JLabel("Welcome");
-        bigWelcome.setBounds(50,50,350,80);
-        bigWelcome.setFont(new Font("Montserrat", Font.PLAIN, 80));
+        bigWelcome.setBounds(50,50,350,70);
+        bigWelcome.setFont(new Font("Montserrat", Font.PLAIN, 82));
         bigWelcome.setForeground(Color.WHITE);
         panel.add(bigWelcome);
 
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/java/squidward money.gif").getImage().getScaledInstance(280, 210, Image.SCALE_DEFAULT));
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon("src/main/java/squidward money.gif").getImage().getScaledInstance(350, 262, Image.SCALE_DEFAULT));
         JLabel image = new JLabel(imageIcon);
-        image.setBounds(50, 150, 280, 210);
+        image.setBounds(50, 150, 350, 262);
         panel.add(image);
 
-        JButton newStock = new JButton();
+        JButton newStock = new JButton("Enter a New Stock");
+        newStock.setFont(new Font("Montserrat", Font.BOLD, 14));
+        newStock.setBounds(450, 175, 300, 30);
+        newStock.setForeground(Color.WHITE);
+        newStock.setBackground(new Color(197,76,76));
+        newStock.setBorder(BorderFactory.createEmptyBorder());
+        newStock.setFocusPainted(false);
+        panel.add(newStock);
+
+        JButton oldStock = new JButton("View an Existing Stock");
+        oldStock.setFont(new Font("Montserrat", Font.BOLD, 14));
+        oldStock.setBounds(450, 225, 300, 30);
+        oldStock.setForeground(Color.WHITE);
+        oldStock.setBackground(new Color(197,76,76));
+        oldStock.setBorder(BorderFactory.createEmptyBorder());
+        oldStock.setFocusPainted(false);
+        panel.add(oldStock);
 
         JButton quit = new JButton("x");
         quit.setFont(new Font("Montserrat", Font.BOLD, 18));
