@@ -14,9 +14,9 @@ public class WelcomeGui implements ActionListener {
     private Color background = new Color(33,33,33);
     private MatteBorder border = BorderFactory.createMatteBorder(0,0,1,0, Color.WHITE);
 
-    public WelcomeGui(MongoCollection<Document> collection, String testname) {
+    public WelcomeGui(MongoCollection<Document> collection, String user) {
         usernames = collection;
-        username = testname;
+        username = user;
     }
 
     public void welcome() {
@@ -31,9 +31,10 @@ public class WelcomeGui implements ActionListener {
         welcomeFrame.setUndecorated(true);
         welcomeFrame.add(panel);
 
-        JLabel bigWelcome = new JLabel("Welcome");
-        bigWelcome.setBounds(50,50,350,75);
-        bigWelcome.setFont(new Font("Montserrat", Font.PLAIN, 82));
+        String welcomeString = "Welcome, " + username + ".";
+        JLabel bigWelcome = new JLabel(welcomeString);
+        bigWelcome.setBounds(50,50,800,75);
+        bigWelcome.setFont(new Font("Montserrat", Font.PLAIN, 60));
         bigWelcome.setForeground(Color.WHITE);
         panel.add(bigWelcome);
 
