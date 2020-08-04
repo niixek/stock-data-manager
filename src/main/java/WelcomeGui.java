@@ -32,7 +32,7 @@ public class WelcomeGui implements ActionListener {
         welcomeFrame.add(panel);
 
         JLabel bigWelcome = new JLabel("Welcome");
-        bigWelcome.setBounds(50,50,350,70);
+        bigWelcome.setBounds(50,50,350,75);
         bigWelcome.setFont(new Font("Montserrat", Font.PLAIN, 82));
         bigWelcome.setForeground(Color.WHITE);
         panel.add(bigWelcome);
@@ -59,6 +59,15 @@ public class WelcomeGui implements ActionListener {
         oldStock.setBorder(BorderFactory.createEmptyBorder());
         oldStock.setFocusPainted(false);
         panel.add(oldStock);
+
+        JButton profile = new JButton("Edit Your Profile");
+        profile.setFont(new Font("Montserrat", Font.BOLD, 14));
+        profile.setBounds(450, 275, 300, 30);
+        profile.setForeground(Color.WHITE);
+        profile.setBackground(new Color(197,76,76));
+        profile.setBorder(BorderFactory.createEmptyBorder());
+        profile.setFocusPainted(false);
+        panel.add(profile);
 
         JButton quit = new JButton("x");
         quit.setFont(new Font("Montserrat", Font.BOLD, 18));
