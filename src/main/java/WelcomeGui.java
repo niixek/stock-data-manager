@@ -1,14 +1,11 @@
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 public class WelcomeGui implements ActionListener {
     private JFrame welcomeFrame;
@@ -25,6 +22,8 @@ public class WelcomeGui implements ActionListener {
     public void welcome() {
         JPanel panel = new JPanel();
         panel.setBackground(background);
+
+        panel.setLayout(null);
 
         welcomeFrame = new JFrame();
         welcomeFrame.setSize(800,500);
@@ -43,7 +42,22 @@ public class WelcomeGui implements ActionListener {
         image.setBounds(50, 150, 280, 210);
         panel.add(image);
 
-        panel.setLayout(null);
+        JButton newStock = new JButton();
+
+        JButton quit = new JButton("x");
+        quit.setFont(new Font("Montserrat", Font.BOLD, 18));
+        quit.setBounds(750, 20, 30, 20);
+        quit.setForeground(Color.WHITE);
+        quit.setBackground(background);
+        quit.setBorder(BorderFactory.createEmptyBorder());
+        quit.setFocusPainted(false);
+        quit.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        panel.add(quit);
 
         welcomeFrame.setLocationRelativeTo(null);
         welcomeFrame.setVisible(true);
