@@ -50,6 +50,14 @@ public class WelcomeGui implements ActionListener {
         newStock.setBackground(new Color(197,76,76));
         newStock.setBorder(BorderFactory.createEmptyBorder());
         newStock.setFocusPainted(false);
+        newStock.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                InformationGui ig = new InformationGui(usernames, username);
+                ig.enterInfo();
+                welcomeFrame.dispose();
+            }
+        });
         panel.add(newStock);
 
         JButton oldStock = new JButton("View an Existing Stock");
