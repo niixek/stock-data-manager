@@ -67,6 +67,14 @@ public class WelcomeGui implements ActionListener {
         oldStock.setBackground(new Color(197,76,76));
         oldStock.setBorder(BorderFactory.createEmptyBorder());
         oldStock.setFocusPainted(false);
+        oldStock.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StockGui sg = new StockGui(usernames, username);
+                sg.viewStock();
+                welcomeFrame.dispose();
+            }
+        });
         panel.add(oldStock);
 
         JButton profile = new JButton("Edit Your Profile");
