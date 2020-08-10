@@ -23,8 +23,10 @@ public class InformationGui implements ActionListener {
     private JTextField stockText;
     private JTextField quantText;
     private JTextField priceText;
-    private double totalCost;
+    private JButton conbutton;
+    private JButton confirm;
     private JLabel correct;
+    private JLabel totText;
     private JComboBox<String> month;
     private JComboBox<String> day;
     private JComboBox<String> year;
@@ -176,12 +178,6 @@ public class InformationGui implements ActionListener {
         priceText.setBorder(border);
         panel.add(priceText);
 
-        JLabel sign2 = new JLabel("$");
-        sign2.setBounds(40,320,20,35);
-        sign2.setFont(new Font("Montserrat", Font.PLAIN, 18));
-        sign2.setForeground(Color.WHITE);
-        panel.add(sign2);
-
         //Allows for "ghost text" to disappear and reappear for username and password fields
         TextPrompt stockPrompt = new TextPrompt("Stock Name", stockText);
         stockPrompt.changeAlpha(.6f);
@@ -195,7 +191,13 @@ public class InformationGui implements ActionListener {
         pricePrompt.changeAlpha(.6f);
         pricePrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
-        JButton conbutton = new JButton("Continue");
+        JLabel sign2 = new JLabel("Your total cost is:");
+        sign2.setBounds(40,310,200,35);
+        sign2.setFont(new Font("Montserrat", Font.PLAIN, 18));
+        sign2.setForeground(Color.WHITE);
+        panel.add(sign2);
+
+        conbutton = new JButton("Continue");
         conbutton.setFont(new Font("Montserrat", Font.BOLD, 14));
         conbutton.setBounds(40, 410, 320, 30);
         conbutton.setForeground(Color.WHITE);
@@ -204,6 +206,16 @@ public class InformationGui implements ActionListener {
         conbutton.setFocusPainted(false);
         conbutton.addActionListener(this);
         panel.add(conbutton);
+
+        confirm = new JButton("Confirm");
+        confirm.setFont(new Font("Montserrat", Font.BOLD, 14));
+        confirm.setBounds(40, 410, 320, 30);
+        confirm.setForeground(Color.WHITE);
+        confirm.setBackground(new Color(197,76,76));
+        confirm.setBorder(BorderFactory.createEmptyBorder());
+        confirm.setFocusPainted(false);
+        confirm.setVisible(false);
+        panel.add(confirm);
 
         //Clicking the "X" in the gui should close out the info window
         JButton quit = new JButton("X");
@@ -224,12 +236,33 @@ public class InformationGui implements ActionListener {
         correct = new JLabel("");
         correct.setFont(new Font("Montserrat", Font.BOLD, 14));
         correct.setForeground(Color.WHITE);
-        correct.setBounds(40,370,300,25);
+        correct.setBounds(40,380,300,25);
         panel.add(correct);
 
+        totText = new JLabel("Press continue to view...", SwingConstants.CENTER);
+        totText.setFont(new Font("Montserrat", Font.PLAIN, 14));
+        totText.setForeground(Color.GRAY);
+        totText.setBounds(40,342,300,25);
+        panel.add(totText);
 
         infoFrame.setLocationRelativeTo(null);
         infoFrame.setVisible(true);
+    }
+
+    public void confirm(Document toSearch, Document toUpdate, String cost) {
+        totText.setForeground(Color.WHITE);
+        totText.setFont(new Font("Montserrat", Font.BOLD, 18));
+        totText.setText("$" + cost);
+        conbutton.setVisible(false);
+        confirm.setVisible(true);
+        correct.setText("Please confirm all information is correct.");
+        confirm.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                usernames.updateOne(toSearch, toUpdate);
+                infoFrame.dispose();
+            }
+        });
     }
 
     @Override
@@ -264,16 +297,15 @@ public class InformationGui implements ActionListener {
             correct.setText("");
 
             priceConverted = Double.parseDouble(price);
-            totalCost = priceConverted * quantity;
+            double totalCost = priceConverted * quantity;
             DecimalFormat df = new DecimalFormat("##.00");
 
             Document search = new Document("username", username);
             Document data = new Document("startDate", date).append("stockName", stock).append("quantity", quantity).append("price", priceConverted).append("total", df.format(totalCost));
             Document group = new Document("stock", data);
             Document update = new Document("$set", group);
-            usernames.updateOne(search, update);
 
-            infoFrame.dispose();
+            confirm(search, update, df.format(totalCost));
         }
     }
 }
