@@ -35,11 +35,11 @@ public class StockDataManager {
         //rg.createNewUser(lg2);
 
         //Run starting with the information GUI and a username
-        InformationGui ig = new InformationGui(collection, "testname");
-        ig.enterInfo();
+        //InformationGui ig = new InformationGui(collection, "testname");
+        //ig.enterInfo();
 
         //Run starting with the welcome GUI and a username
-        //WelcomeGui wg = new WelcomeGui(collection, "testname");
-        //wg.welcome();
+        WelcomeGui wg = new WelcomeGui(collection, "testname");
+        wg.welcome();
     }
 }

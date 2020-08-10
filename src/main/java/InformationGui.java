@@ -11,6 +11,7 @@ import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -22,7 +23,7 @@ public class InformationGui implements ActionListener {
     private JTextField stockText;
     private JTextField quantText;
     private JTextField priceText;
-    private JTextField fundText;
+    private double totalCost;
     private JLabel correct;
     private JComboBox<String> month;
     private JComboBox<String> day;
@@ -181,14 +182,6 @@ public class InformationGui implements ActionListener {
         sign2.setForeground(Color.WHITE);
         panel.add(sign2);
 
-        fundText = new JTextField(20);
-        fundText.setBounds(60,320,300,35);
-        fundText.setFont(new Font("Montserrat", Font.PLAIN, 15));
-        fundText.setBackground(background);
-        fundText.setForeground(Color.WHITE);
-        fundText.setBorder(border);
-        panel.add(fundText);
-
         //Allows for "ghost text" to disappear and reappear for username and password fields
         TextPrompt stockPrompt = new TextPrompt("Stock Name", stockText);
         stockPrompt.changeAlpha(.6f);
@@ -201,10 +194,6 @@ public class InformationGui implements ActionListener {
         TextPrompt pricePrompt = new TextPrompt("Initial Stock Price (ex: 123.45)", priceText);
         pricePrompt.changeAlpha(.6f);
         pricePrompt.setShow(TextPrompt.Show.FOCUS_LOST);
-
-        TextPrompt fundPrompt = new TextPrompt("Initial Funds (ex: 123.45)", fundText);
-        fundPrompt.changeAlpha(.6f);
-        fundPrompt.setShow(TextPrompt.Show.FOCUS_LOST);
 
         JButton conbutton = new JButton("Continue");
         conbutton.setFont(new Font("Montserrat", Font.BOLD, 14));
@@ -252,14 +241,11 @@ public class InformationGui implements ActionListener {
         String stock = stockText.getText().trim();
         int quantity = -1;
         String price = priceText.getText();
-        String funds = fundText.getText();
 
         double priceConverted;
-        double fundsConverted;
 
         Pattern regex = Pattern.compile("^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*\\.[0-9]{2}$");
         Matcher matcher = regex.matcher(price);
-        Matcher matcher2 = regex.matcher(funds);
 
         try {
             quantity = Integer.parseInt(quantText.getText());
@@ -271,17 +257,18 @@ public class InformationGui implements ActionListener {
         else if (quantity < 0) {
             correct.setText("Please enter a quantity.");
         }
-        else if (!(matcher.matches() && matcher2.matches())) {
+        else if (!(matcher.matches())) {
             correct.setText("Please enter currency correctly.");
         }
         else {
             correct.setText("");
 
             priceConverted = Double.parseDouble(price);
-            fundsConverted = Double.parseDouble(funds);
+            totalCost = priceConverted * quantity;
+            DecimalFormat df = new DecimalFormat("##.00");
 
             Document search = new Document("username", username);
-            Document data = new Document("startDate", date).append("stockName", stock).append("quantity", quantity).append("price", priceConverted).append("funds", fundsConverted);
+            Document data = new Document("startDate", date).append("stockName", stock).append("quantity", quantity).append("price", priceConverted).append("total", df.format(totalCost));
             Document group = new Document("stock", data);
             Document update = new Document("$set", group);
             usernames.updateOne(search, update);
