@@ -281,8 +281,9 @@ public class InformationGui implements ActionListener {
             fundsConverted = Double.parseDouble(funds);
 
             Document search = new Document("username", username);
-            Document data = new Document("startDate", date).append("stock", stock).append("quantity", quantity).append("price", priceConverted).append("funds", fundsConverted);
-            Document update = new Document("$set", data);
+            Document data = new Document("startDate", date).append("stockName", stock).append("quantity", quantity).append("price", priceConverted).append("funds", fundsConverted);
+            Document group = new Document("stock", data);
+            Document update = new Document("$set", group);
             usernames.updateOne(search, update);
 
             infoFrame.dispose();
