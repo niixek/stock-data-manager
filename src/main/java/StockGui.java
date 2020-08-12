@@ -49,7 +49,7 @@ public class StockGui implements ActionListener {
 
         JButton quit = new JButton("x");
         quit.setFont(new Font("Montserrat", Font.BOLD, 18));
-        quit.setBounds(750, 20, 30, 20);
+        quit.setBounds(350, 20, 30, 20);
         quit.setForeground(Color.WHITE);
         quit.setBackground(background);
         quit.setBorder(BorderFactory.createEmptyBorder());
