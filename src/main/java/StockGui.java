@@ -3,6 +3,7 @@ import org.bson.Document;
 
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.awt.event.ActionListener;
 public class StockGui implements ActionListener {
     private JFrame frame;
     private MongoCollection<Document> usernames;
+    private JComboBox<String> select;
     private String username;
     private Color background = new Color(33,33,33);
     private MatteBorder border = BorderFactory.createMatteBorder(0,0,1,0, Color.WHITE);
@@ -30,6 +32,14 @@ public class StockGui implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setUndecorated(true);
         frame.add(panel);
+
+        select = new JComboBox<>();
+        select.setBounds(40,125,115,35);
+        select.setFont(new Font("Montserrat", Font.PLAIN, 15));
+        select.setBackground(background);
+        select.setForeground(Color.WHITE);
+        select.setUI(new BasicComboBoxUI());
+        panel.add(select);
 
         JButton quit = new JButton("x");
         quit.setFont(new Font("Montserrat", Font.BOLD, 18));
