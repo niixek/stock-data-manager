@@ -28,10 +28,16 @@ public class StockGui implements ActionListener {
         panel.setLayout(null);
 
         frame = new JFrame();
-        frame.setSize(800,500);
+        frame.setSize(400,200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setUndecorated(true);
         frame.add(panel);
+
+        JLabel text = new JLabel("Select a Stock", SwingConstants.CENTER);
+        text.setBounds(40,30,320,35);
+        text.setFont(new Font("Montserrat", Font.PLAIN, 40));
+        text.setForeground(Color.WHITE);
+        panel.add(text);
 
         select = new JComboBox<>();
         select.setBounds(40,125,115,35);
