@@ -64,7 +64,7 @@ public class RegisterGui implements ActionListener{
                         }
                     }
                     if (registered) {
-                        Document newUser = new Document("username", username).append("password", password);
+                        Document newUser = new Document("username", username).append("password", password).append("stockNum", 0);
                         usernames.insertOne(newUser);
                         frame.dispose();
                         login.getFrame().setVisible(true);
