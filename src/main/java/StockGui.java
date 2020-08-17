@@ -12,13 +12,13 @@ public class StockGui implements ActionListener {
     private JFrame frame;
     private MongoCollection<Document> usernames;
     private JComboBox<String> select;
-    private String username;
+    private Document data;
     private Color background = new Color(33,33,33);
     private MatteBorder border = BorderFactory.createMatteBorder(0,0,1,0, Color.WHITE);
 
-    public StockGui(MongoCollection<Document> collection, String user) {
+    public StockGui(MongoCollection<Document> collection, Document userData) {
         usernames = collection;
-        username = user;
+        data = userData;
     }
 
     public void viewStock() {

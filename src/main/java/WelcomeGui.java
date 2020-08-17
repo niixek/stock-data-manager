@@ -10,13 +10,13 @@ import java.awt.event.ActionListener;
 public class WelcomeGui implements ActionListener {
     private JFrame welcomeFrame;
     private MongoCollection<Document> usernames;
-    private String username;
+    private Document data;
     private Color background = new Color(33,33,33);
     private MatteBorder border = BorderFactory.createMatteBorder(0,0,1,0, Color.WHITE);
 
-    public WelcomeGui(MongoCollection<Document> collection, String user) {
+    public WelcomeGui(MongoCollection<Document> collection, Document userData) {
         usernames = collection;
-        username = user;
+        data = userData;
     }
 
     public void welcome() {
@@ -31,7 +31,7 @@ public class WelcomeGui implements ActionListener {
         welcomeFrame.setUndecorated(true);
         welcomeFrame.add(panel);
 
-        String welcomeString = "Welcome, " + username + ".";
+        String welcomeString = "Welcome, " + data.get("username") + ".";
         JLabel bigWelcome = new JLabel(welcomeString);
         bigWelcome.setBounds(50,50,800,75);
         bigWelcome.setFont(new Font("Montserrat", Font.PLAIN, 60));
@@ -53,7 +53,7 @@ public class WelcomeGui implements ActionListener {
         newStock.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                InformationGui ig = new InformationGui(usernames, username);
+                InformationGui ig = new InformationGui(usernames, data);
                 ig.enterInfo();
                 welcomeFrame.dispose();
             }
@@ -70,7 +70,7 @@ public class WelcomeGui implements ActionListener {
         oldStock.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StockGui sg = new StockGui(usernames, username);
+                StockGui sg = new StockGui(usernames, data);
                 sg.viewStock();
                 welcomeFrame.dispose();
             }
