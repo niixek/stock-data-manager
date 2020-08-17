@@ -32,13 +32,13 @@ public class InformationGui implements ActionListener {
     private JComboBox<String> year;
     private Hashtable<String, String[]> daysMap = new Hashtable<>();
     private MongoCollection<Document> usernames;
-    private String username;
+    private Document data;
     private Color background = new Color(33,33,33);
     private MatteBorder border = BorderFactory.createMatteBorder(0,0,1,0, Color.WHITE);
 
-    public InformationGui(MongoCollection<Document> collection, String user) {
+    public InformationGui(MongoCollection<Document> collection, Document userData) {
         usernames = collection;
-        username = user;
+        data = userData;
     }
 
     public void enterInfo() {
@@ -300,7 +300,7 @@ public class InformationGui implements ActionListener {
             double totalCost = priceConverted * quantity;
             DecimalFormat df = new DecimalFormat("##.00");
 
-            Document search = new Document("username", username);
+            Document search = new Document("username", data.get("username"));
             Document data = new Document("startDate", date).append("stockName", stock).append("quantity", quantity).append("price", priceConverted).append("total", df.format(totalCost));
             Document group = new Document("stock", data);
             Document update = new Document("$set", group);

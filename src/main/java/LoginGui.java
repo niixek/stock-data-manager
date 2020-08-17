@@ -45,6 +45,7 @@ public class LoginGui implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 String username = userText.getText();
                 String password = passText.getText();
+                Document data = null;
                 boolean loggedIn = false;
                 //System.out.println("Username: " + username);
                 //System.out.println("Password: " + password);
@@ -63,11 +64,12 @@ public class LoginGui implements ActionListener {
                     for (Document document : usernames.find(eq("username", username))) {
                         if (document.get("password").equals(password)) {
                             loggedIn = true;
+                            data = document;
                         }
                     }
                     if (loggedIn) {
                         loginFrame.dispose();
-                        InformationGui ig = new InformationGui(usernames, username);
+                        InformationGui ig = new InformationGui(usernames, data);
                         ig.enterInfo();
                     }
                     else {

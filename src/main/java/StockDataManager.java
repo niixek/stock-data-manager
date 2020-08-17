@@ -34,16 +34,16 @@ public class StockDataManager {
         //RegisterGui rg = new RegisterGui(collection);
         //rg.createNewUser(lg2);
 
-        //Run starting with the information GUI and a username
+        //Run starting with the information GUI and a username (not working)
         //InformationGui ig = new InformationGui(collection, "testname");
         //ig.enterInfo();
 
-        //Run starting with the welcome GUI and a username
+        //Run starting with the welcome GUI and a username (not working)
         //WelcomeGui wg = new WelcomeGui(collection, "testname");
         //wg.welcome();
 
-        //Run starting with the stock GUI and a username
-        StockGui sg = new StockGui(collection, "testname");
-        sg.viewStock();
+        //Run starting with the stock GUI and a username (not working)
+        //StockGui sg = new StockGui(collection, "testname");
+        //sg.viewStock();
     }
 }
