@@ -36,12 +36,10 @@ public class InformationGui implements ActionListener {
     private Document data;
     private Color background = new Color(33,33,33);
     private MatteBorder border = BorderFactory.createMatteBorder(0,0,1,0, Color.WHITE);
-    private Integer numStocks;
 
     public InformationGui(MongoCollection<Document> collection, Document userData) {
         usernames = collection;
         data = userData;
-        numStocks = (Integer)data.get("stockNum") + 1;
     }
 
     public void enterInfo() {
@@ -262,7 +260,7 @@ public class InformationGui implements ActionListener {
         infoFrame.setVisible(true);
     }
 
-    public void confirm(Document toSearch, Document toUpdate, String cost) {
+    public void confirm(Document toUpdate, String cost) {
         totText.setForeground(Color.WHITE);
         totText.setFont(new Font("Montserrat", Font.BOLD, 18));
         totText.setText("$ " + cost);
@@ -273,13 +271,15 @@ public class InformationGui implements ActionListener {
         confirm.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                usernames.updateOne(toSearch, toUpdate);
-                Document stockInc = new Document("stockNum", numStocks);
+                usernames.updateOne(data, toUpdate);
+                Document stockInc = new Document("stockNum", (Integer)data.get("stockNum") + 1);
                 Document update = new Document("$set", stockInc);
-                usernames.updateOne(toSearch, update);
+                usernames.updateOne(data, update);
                 infoFrame.dispose();
                 WelcomeGui wg = new WelcomeGui(usernames, data);
                 wg.welcome();
+                System.out.println("Post-confirm: " + data.get("stockNum"));
+                System.out.println(data);
             }
         });
         cancel.addActionListener(new AbstractAction() {
@@ -330,14 +330,16 @@ public class InformationGui implements ActionListener {
             priceConverted = Double.parseDouble(price);
             double totalCost = priceConverted * quantity;
             DecimalFormat df = new DecimalFormat("##.00");
-            String stockNum = "stock" + numStocks.toString();
+            int numStock = (Integer)data.get("stockNum") + 1;
+            String stockNum = "stock" + numStock;
+            System.out.println("Pre-confirm: " + numStock);
+            System.out.println(data);
 
-            Document search = new Document("username", data.get("username"));
-            Document data = new Document("startDate", date).append("stockName", stock).append("quantity", quantity).append("price", priceConverted).append("total", df.format(totalCost));
-            Document group = new Document(stockNum, data);
+
+            Document stockData = new Document("startDate", date).append("stockName", stock).append("quantity", quantity).append("price", priceConverted).append("total", df.format(totalCost));
+            Document group = new Document(stockNum, stockData);
             Document update = new Document("$set", group);
-
-            confirm(search, update, df.format(totalCost));
+            confirm(update, df.format(totalCost));
         }
     }
 }
