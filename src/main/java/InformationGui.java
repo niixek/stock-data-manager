@@ -271,15 +271,18 @@ public class InformationGui implements ActionListener {
         confirm.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int numStock = data.getInteger("stockNum") + 1;
                 usernames.updateOne(data, toUpdate);
-                Document stockInc = new Document("stockNum", (Integer)data.get("stockNum") + 1);
+                Document stockInc = new Document("stockNum", numStock);
                 Document update = new Document("$set", stockInc);
                 usernames.updateOne(data, update);
                 infoFrame.dispose();
                 WelcomeGui wg = new WelcomeGui(usernames, data);
                 wg.welcome();
-                System.out.println("Post-confirm: " + data.get("stockNum"));
-                System.out.println(data);
+                //System.out.println(stockInc);
+                //System.out.println(update);
+               // System.out.println("Post-confirm: " + data.get("stockNum"));
+                //System.out.println(data);
             }
         });
         cancel.addActionListener(new AbstractAction() {
@@ -295,6 +298,7 @@ public class InformationGui implements ActionListener {
             }
         });
     }
+    //need to "update" the data first before sending it to other classes
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -330,7 +334,7 @@ public class InformationGui implements ActionListener {
             priceConverted = Double.parseDouble(price);
             double totalCost = priceConverted * quantity;
             DecimalFormat df = new DecimalFormat("##.00");
-            int numStock = (Integer)data.get("stockNum") + 1;
+            int numStock = data.getInteger("stockNum") + 2;
             String stockNum = "stock" + numStock;
             System.out.println("Pre-confirm: " + numStock);
             System.out.println(data);
