@@ -260,7 +260,13 @@ public class InformationGui implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 usernames.updateOne(toSearch, toUpdate);
+                int numStocks = (Integer)data.get("stockNum") + 1;
+                Document stockInc = new Document("stockNum", numStocks);
+                Document update = new Document("$set", stockInc);
+                usernames.updateOne(toSearch, update);
                 infoFrame.dispose();
+                WelcomeGui wg = new WelcomeGui(usernames, data);
+                wg.welcome();
             }
         });
     }

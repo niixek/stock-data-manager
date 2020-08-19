@@ -68,9 +68,17 @@ public class LoginGui implements ActionListener {
                         }
                     }
                     if (loggedIn) {
-                        loginFrame.dispose();
-                        InformationGui ig = new InformationGui(usernames, data);
-                        ig.enterInfo();
+                        if ((Integer)data.get("stockNum") == 0) {
+                            loginFrame.dispose();
+                            InformationGui ig = new InformationGui(usernames, data);
+                            ig.enterInfo();
+                        }
+                        else {
+                            loginFrame.dispose();
+                            WelcomeGui wg = new WelcomeGui(usernames, data);
+                            wg.welcome();
+                        }
+
                     }
                     else {
                         correct.setText("Incorrect username/password.");
