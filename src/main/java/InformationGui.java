@@ -25,6 +25,7 @@ public class InformationGui implements ActionListener {
     private JTextField priceText;
     private JButton conbutton;
     private JButton confirm;
+    private JButton cancel;
     private JLabel correct;
     private JLabel totText;
     private JComboBox<String> month;
@@ -35,10 +36,12 @@ public class InformationGui implements ActionListener {
     private Document data;
     private Color background = new Color(33,33,33);
     private MatteBorder border = BorderFactory.createMatteBorder(0,0,1,0, Color.WHITE);
+    private Integer numStocks;
 
     public InformationGui(MongoCollection<Document> collection, Document userData) {
         usernames = collection;
         data = userData;
+        numStocks = (Integer)data.get("stockNum") + 1;
     }
 
     public void enterInfo() {
@@ -209,13 +212,23 @@ public class InformationGui implements ActionListener {
 
         confirm = new JButton("Confirm");
         confirm.setFont(new Font("Montserrat", Font.BOLD, 14));
-        confirm.setBounds(40, 410, 320, 30);
+        confirm.setBounds(40, 410, 150, 30);
         confirm.setForeground(Color.WHITE);
         confirm.setBackground(new Color(197,76,76));
         confirm.setBorder(BorderFactory.createEmptyBorder());
         confirm.setFocusPainted(false);
         confirm.setVisible(false);
         panel.add(confirm);
+
+        cancel = new JButton("Cancel");
+        cancel.setFont(new Font("Montserrat", Font.BOLD, 14));
+        cancel.setBounds(210, 410, 150, 30);
+        cancel.setForeground(Color.WHITE);
+        cancel.setBackground(new Color(197,76,76));
+        cancel.setBorder(BorderFactory.createEmptyBorder());
+        cancel.setFocusPainted(false);
+        cancel.setVisible(false);
+        panel.add(cancel);
 
         //Clicking the "X" in the gui should close out the info window
         JButton quit = new JButton("X");
@@ -252,21 +265,33 @@ public class InformationGui implements ActionListener {
     public void confirm(Document toSearch, Document toUpdate, String cost) {
         totText.setForeground(Color.WHITE);
         totText.setFont(new Font("Montserrat", Font.BOLD, 18));
-        totText.setText("$" + cost);
+        totText.setText("$ " + cost);
         conbutton.setVisible(false);
         confirm.setVisible(true);
+        cancel.setVisible(true);
         correct.setText("Please confirm all information is correct.");
         confirm.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 usernames.updateOne(toSearch, toUpdate);
-                int numStocks = (Integer)data.get("stockNum") + 1;
                 Document stockInc = new Document("stockNum", numStocks);
                 Document update = new Document("$set", stockInc);
                 usernames.updateOne(toSearch, update);
                 infoFrame.dispose();
                 WelcomeGui wg = new WelcomeGui(usernames, data);
                 wg.welcome();
+            }
+        });
+        cancel.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                confirm.setVisible(false);
+                cancel.setVisible(false);
+                totText.setText("Press continue to view...");
+                totText.setForeground(Color.GRAY);
+                totText.setFont(new Font("Montserrat", Font.PLAIN, 14));
+                correct.setText("");
+                conbutton.setVisible(true);
             }
         });
     }
@@ -305,10 +330,11 @@ public class InformationGui implements ActionListener {
             priceConverted = Double.parseDouble(price);
             double totalCost = priceConverted * quantity;
             DecimalFormat df = new DecimalFormat("##.00");
+            String stockNum = "stock" + numStocks.toString();
 
             Document search = new Document("username", data.get("username"));
             Document data = new Document("startDate", date).append("stockName", stock).append("quantity", quantity).append("price", priceConverted).append("total", df.format(totalCost));
-            Document group = new Document("stock", data);
+            Document group = new Document(stockNum, data);
             Document update = new Document("$set", group);
 
             confirm(search, update, df.format(totalCost));
