@@ -262,53 +262,7 @@ public class InformationGui implements ActionListener {
         infoFrame.setVisible(true);
     }
 
-    public void confirm(Document toUpdate, String cost) {
-        totText.setForeground(Color.WHITE);
-        totText.setFont(new Font("Montserrat", Font.BOLD, 18));
-        totText.setText("$ " + cost);
-        conbutton.setVisible(false);
-        confirm.setVisible(true);
-        cancel.setVisible(true);
-        correct.setText("Please confirm all information is correct.");
-        confirm.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int numStock = data.getInteger("stockNum") + 1;
-                usernames.updateOne(data, toUpdate);
-                Document stockInc = new Document("stockNum", numStock);
-                Document update = new Document("$set", stockInc);
-                usernames.updateOne(data, update);
-                infoFrame.dispose();
-                updateData(data);
-                WelcomeGui wg = new WelcomeGui(usernames, data);
-                wg.welcome();
-                System.out.println("Post-confirm: " + data.get("stockNum"));
-            }
-        });
-        cancel.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                confirm.setVisible(false);
-                cancel.setVisible(false);
-                totText.setText("Press continue to view...");
-                totText.setForeground(Color.GRAY);
-                totText.setFont(new Font("Montserrat", Font.PLAIN, 14));
-                correct.setText("");
-                conbutton.setVisible(true);
-            }
-        });
-    }
-
-    public void updateData(Document oldDoc) {
-        for (Document document : usernames.find(eq("username", oldDoc.get("username")))) {
-            data = document;
-            System.out.println(data);
-        }
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    public Document enterData() {
         ArrayList<String> date = new ArrayList<>();
         date.add((String) month.getSelectedItem());
         date.add((String) day.getSelectedItem());
@@ -343,13 +297,62 @@ public class InformationGui implements ActionListener {
             DecimalFormat df = new DecimalFormat("##.00");
             int numStock = data.getInteger("stockNum") + 1;
             String stockNum = "stock" + numStock;
-            System.out.println("Pre-confirm: " + numStock);
 
 
             Document stockData = new Document("startDate", date).append("stockName", stock).append("quantity", quantity).append("price", priceConverted).append("total", df.format(totalCost));
             Document group = new Document(stockNum, stockData);
             Document update = new Document("$set", group);
-            confirm(update, df.format(totalCost));
+            System.out.println("finished data");
         }
+    }
+
+    public void confirming(Document toUpdate, String cost) {
+        totText.setForeground(Color.WHITE);
+        totText.setFont(new Font("Montserrat", Font.BOLD, 18));
+        totText.setText("$ " + cost);
+        conbutton.setVisible(false);
+        confirm.setVisible(true);
+        cancel.setVisible(true);
+        correct.setText("Please confirm all information is correct.");
+        confirm.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int numStock = data.getInteger("stockNum") + 1;
+                usernames.updateOne(data, toUpdate);
+                Document stockInc = new Document("stockNum", numStock);
+                Document update = new Document("$set", stockInc);
+                usernames.updateOne(data, update);
+                infoFrame.dispose();
+                updateData(data);
+                WelcomeGui wg = new WelcomeGui(usernames, data);
+                wg.welcome();
+            }
+        });
+        cancel.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                confirm.setVisible(false);
+                cancel.setVisible(false);
+                totText.setText("Press continue to view...");
+                totText.setForeground(Color.GRAY);
+                totText.setFont(new Font("Montserrat", Font.PLAIN, 14));
+                correct.setText("");
+                conbutton.setVisible(true);
+            }
+        });
+        System.out.println("finish");
+    }
+
+    public void updateData(Document oldDoc) {
+        for (Document document : usernames.find(eq("username", oldDoc.get("username")))) {
+            data = document;
+        }
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Document toUpdate = enterData();
+        confirming(toUpdate, );
     }
 }

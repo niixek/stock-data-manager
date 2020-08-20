@@ -65,7 +65,6 @@ public class LoginGui implements ActionListener {
                         if (document.get("password").equals(password)) {
                             loggedIn = true;
                             data = document;
-                            System.out.println(data);
                         }
                     }
                     if (loggedIn) {
