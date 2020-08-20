@@ -18,6 +18,8 @@ import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.mongodb.client.model.Filters.eq;
+
 public class InformationGui implements ActionListener {
     private JFrame infoFrame;
     private JTextField stockText;
@@ -277,12 +279,10 @@ public class InformationGui implements ActionListener {
                 Document update = new Document("$set", stockInc);
                 usernames.updateOne(data, update);
                 infoFrame.dispose();
+                updateData(data);
                 WelcomeGui wg = new WelcomeGui(usernames, data);
                 wg.welcome();
-                //System.out.println(stockInc);
-                //System.out.println(update);
-               // System.out.println("Post-confirm: " + data.get("stockNum"));
-                //System.out.println(data);
+                System.out.println("Post-confirm: " + data.get("stockNum"));
             }
         });
         cancel.addActionListener(new AbstractAction() {
@@ -298,7 +298,14 @@ public class InformationGui implements ActionListener {
             }
         });
     }
-    //need to "update" the data first before sending it to other classes
+
+    public void updateData(Document oldDoc) {
+        for (Document document : usernames.find(eq("username", oldDoc.get("username")))) {
+            data = document;
+            System.out.println(data);
+        }
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -334,10 +341,9 @@ public class InformationGui implements ActionListener {
             priceConverted = Double.parseDouble(price);
             double totalCost = priceConverted * quantity;
             DecimalFormat df = new DecimalFormat("##.00");
-            int numStock = data.getInteger("stockNum") + 2;
+            int numStock = data.getInteger("stockNum") + 1;
             String stockNum = "stock" + numStock;
             System.out.println("Pre-confirm: " + numStock);
-            System.out.println(data);
 
 
             Document stockData = new Document("startDate", date).append("stockName", stock).append("quantity", quantity).append("price", priceConverted).append("total", df.format(totalCost));
