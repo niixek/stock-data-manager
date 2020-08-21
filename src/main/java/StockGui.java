@@ -22,9 +22,6 @@ public class StockGui implements ActionListener {
     }
 
     public void viewStock() {
-        //Document search = new Document("username", username);
-        //Document test = usernames.find(search);
-       // System.out.println(usernames.)
         JPanel panel = new JPanel();
         panel.setBackground(background);
 

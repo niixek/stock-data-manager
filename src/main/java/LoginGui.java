@@ -186,6 +186,15 @@ public class LoginGui implements ActionListener {
         loginFrame.setVisible(true);
     }
 
+    //For testing use only
+    public Document getData(String username) {
+        Document data = null;
+        for (Document document : usernames.find(eq("username", username))) {
+            data = document;
+        }
+        return data;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         /*
