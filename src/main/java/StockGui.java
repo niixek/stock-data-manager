@@ -17,6 +17,7 @@ public class StockGui implements ActionListener {
     private MongoCollection<Document> usernames;
     private JComboBox<String> select;
     private Document data;
+    private JButton conbutton;
     private Color background = new Color(33,33,33);
     private MatteBorder border = BorderFactory.createMatteBorder(0,0,1,0, Color.WHITE);
 
@@ -37,7 +38,7 @@ public class StockGui implements ActionListener {
         frame.setUndecorated(true);
         frame.add(panel);
 
-        JLabel text = new JLabel("Select a Stock", SwingConstants.CENTER);
+        JLabel text = new JLabel("Select a Stock");
         text.setBounds(40,30,320,35);
         text.setFont(new Font("Montserrat", Font.PLAIN, 40));
         text.setForeground(Color.WHITE);
@@ -45,11 +46,11 @@ public class StockGui implements ActionListener {
 
         String[] stocks = getStocks();
         select = new JComboBox<>(stocks);
-        select.setBounds(40,125,115,35);
-        select.setFont(new Font("Montserrat", Font.PLAIN, 15));
+        select.setUI(new BasicComboBoxUI());
+        select.setBounds(40,80,320,35);
+        select.setFont(new Font("Montserrat", Font.PLAIN, 16));
         select.setBackground(background);
         select.setForeground(Color.WHITE);
-        select.setUI(new BasicComboBoxUI());
         panel.add(select);
 
         JButton quit = new JButton("x");
@@ -66,6 +67,16 @@ public class StockGui implements ActionListener {
             }
         });
         panel.add(quit);
+
+        conbutton = new JButton("Continue");
+        conbutton.setFont(new Font("Montserrat", Font.BOLD, 14));
+        conbutton.setBounds(40, 140, 320, 30);
+        conbutton.setForeground(Color.WHITE);
+        conbutton.setBackground(new Color(197,76,76));
+        conbutton.setBorder(BorderFactory.createEmptyBorder());
+        conbutton.setFocusPainted(false);
+        conbutton.addActionListener(this);
+        panel.add(conbutton);
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
