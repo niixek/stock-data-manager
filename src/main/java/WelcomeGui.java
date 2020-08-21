@@ -12,7 +12,6 @@ public class WelcomeGui implements ActionListener {
     private MongoCollection<Document> usernames;
     private Document data;
     private Color background = new Color(33,33,33);
-    private MatteBorder border = BorderFactory.createMatteBorder(0,0,1,0, Color.WHITE);
 
     public WelcomeGui(MongoCollection<Document> collection, Document userData) {
         usernames = collection;
@@ -104,16 +103,6 @@ public class WelcomeGui implements ActionListener {
         welcomeFrame.setLocationRelativeTo(null);
         welcomeFrame.setVisible(true);
     }
-
-
-
-
-
-
-
-
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

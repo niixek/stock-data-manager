@@ -7,6 +7,10 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static com.mongodb.client.model.Filters.eq;
 
 public class StockGui implements ActionListener {
     private JFrame frame;
@@ -39,7 +43,8 @@ public class StockGui implements ActionListener {
         text.setForeground(Color.WHITE);
         panel.add(text);
 
-        select = new JComboBox<>();
+        String[] stocks = getStocks();
+        select = new JComboBox<>(stocks);
         select.setBounds(40,125,115,35);
         select.setFont(new Font("Montserrat", Font.PLAIN, 15));
         select.setBackground(background);
@@ -64,6 +69,16 @@ public class StockGui implements ActionListener {
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    public String[] getStocks() {
+        String[] stockList = new String[data.getInteger("stockNum")];
+        for(int i = 1; i <= data.getInteger("stockNum"); i++) {
+            Document stock = (Document) data.get("stock" + i);
+            String name = stock.getString("stockName");
+            stockList[i-1] = name;
+        }
+        return stockList;
     }
 
     @Override
