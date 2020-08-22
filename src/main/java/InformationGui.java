@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -280,10 +281,10 @@ public class InformationGui implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Calendar date = Calendar.getInstance();
-        Integer yearInt = Integer.parseInt((String) Objects.requireNonNull(year.getSelectedItem()));
-        Integer monthInt = 
-        date.set(year.getSelectedItem(), month.getSelectedItem(), day.getSelectedItem());
+        int yearInt = Integer.parseInt((String) Objects.requireNonNull(year.getSelectedItem()));
+        int monthInt = month.getSelectedIndex() + 1;
+        int dayInt = day.getSelectedIndex() + 1;
+        LocalDate date = LocalDate.of(yearInt, monthInt, dayInt);
         String stock = stockText.getText().trim();
         int quantity = -1;
         String price = priceText.getText();
