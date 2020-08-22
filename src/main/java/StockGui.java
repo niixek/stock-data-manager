@@ -1,4 +1,6 @@
 import com.mongodb.client.MongoCollection;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.bson.Document;
 
 import javax.swing.*;
@@ -8,17 +10,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import static com.mongodb.client.model.Filters.eq;
 
 public class StockGui implements ActionListener {
     private JFrame frame;
     private MongoCollection<Document> usernames;
     private JComboBox<String> select;
     private Document data;
-    private JButton conbutton;
     private String selectedStock;
+    private String[] stocks;
+    private ArrayList<Pair<Document, String>> stockDocs;
 
     private JFrame viewFrame;
     private Color background = new Color(33,33,33);
@@ -47,7 +47,7 @@ public class StockGui implements ActionListener {
         text.setForeground(Color.WHITE);
         panel.add(text);
 
-        String[] stocks = getStocks();
+        getStocks();
         select = new JComboBox<>(stocks);
         select.setUI(new BasicComboBoxUI());
         select.setBounds(40,80,320,35);
@@ -71,7 +71,7 @@ public class StockGui implements ActionListener {
         });
         panel.add(quit);
 
-        conbutton = new JButton("Continue");
+        JButton conbutton = new JButton("Continue");
         conbutton.setFont(new Font("Montserrat", Font.BOLD, 14));
         conbutton.setBounds(40, 140, 320, 30);
         conbutton.setForeground(Color.WHITE);
@@ -85,24 +85,34 @@ public class StockGui implements ActionListener {
         frame.setVisible(true);
     }
 
-    public String[] getStocks() {
-        String[] stockList = new String[data.getInteger("stockNum")];
-        for(int i = 1; i <= data.getInteger("stockNum"); i++) {
+    public void getStocks() {
+        ArrayList<Pair<Document, String>> stockList = new ArrayList<>();
+        String[] stockListNames = new String[data.getInteger("stockNum")];
+        for (int i = 1; i <= data.getInteger("stockNum"); i++) {
             Document stock = (Document) data.get("stock" + i);
             String name = stock.getString("stockName");
-            stockList[i-1] = name;
+            Pair<Document, String> pair = new ImmutablePair<>(stock, name);
+            stockList.add(pair);
+            stockListNames[i-1] = name;
         }
-        return stockList;
+        stocks = stockListNames;
+        stockDocs = stockList;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         selectedStock = (String)select.getSelectedItem();
+        Document ssData = null;
+        for (int i = 0; i < stockDocs.size(); i++) {
+            if (stockDocs.get(i).getRight().equals(selectedStock)) {
+                ssData = stockDocs.get(i).getLeft();
+            }
+        }
         frame.dispose();
-        viewStock(selectedStock);
+        viewStock(ssData);
     }
 
-    public void viewStock(String selectedStock) {
+    public void viewStock(Document selectedStock) {
         JPanel panel = new JPanel();
         panel.setBackground(background);
 
@@ -116,11 +126,14 @@ public class StockGui implements ActionListener {
         viewFrame.setVisible(true);
         viewFrame.add(panel);
 
-        JLabel text = new JLabel(selectedStock);
-        text.setBounds(40,30,320,35);
-        text.setFont(new Font("Montserrat", Font.PLAIN, 40));
-        text.setForeground(Color.WHITE);
-        panel.add(text);
+        JLabel stockName = new JLabel(selectedStock.getString("stockName"));
+        stockName.setBounds(40,30,320,45);
+        stockName.setFont(new Font("Montserrat", Font.PLAIN, 40));
+        stockName.setForeground(Color.WHITE);
+        panel.add(stockName);
+
+        //String sDate = selectedStock.getDate("startDate");
+        //JLabel start = new JLabel()
 
         JButton quit = new JButton("x");
         quit.setFont(new Font("Montserrat", Font.BOLD, 18));

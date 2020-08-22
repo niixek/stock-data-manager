@@ -12,9 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Hashtable;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -282,10 +280,10 @@ public class InformationGui implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ArrayList<String> date = new ArrayList<>();
-        date.add((String) month.getSelectedItem());
-        date.add((String) day.getSelectedItem());
-        date.add((String) year.getSelectedItem());
+        Calendar date = Calendar.getInstance();
+        Integer yearInt = Integer.parseInt((String) Objects.requireNonNull(year.getSelectedItem()));
+        Integer monthInt = 
+        date.set(year.getSelectedItem(), month.getSelectedItem(), day.getSelectedItem());
         String stock = stockText.getText().trim();
         int quantity = -1;
         String price = priceText.getText();
