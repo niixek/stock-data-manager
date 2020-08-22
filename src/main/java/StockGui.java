@@ -9,7 +9,13 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class StockGui implements ActionListener {
     private JFrame frame;
@@ -103,12 +109,13 @@ public class StockGui implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         selectedStock = (String)select.getSelectedItem();
         Document ssData = null;
-        for (int i = 0; i < stockDocs.size(); i++) {
-            if (stockDocs.get(i).getRight().equals(selectedStock)) {
-                ssData = stockDocs.get(i).getLeft();
+        for (Pair<Document, String> stockDoc : stockDocs) {
+            if (stockDoc.getRight().equals(selectedStock)) {
+                ssData = stockDoc.getLeft();
             }
         }
         frame.dispose();
+        assert ssData != null;
         viewStock(ssData);
     }
 
@@ -128,12 +135,22 @@ public class StockGui implements ActionListener {
 
         JLabel stockName = new JLabel(selectedStock.getString("stockName"));
         stockName.setBounds(40,30,320,45);
-        stockName.setFont(new Font("Montserrat", Font.PLAIN, 40));
+        stockName.setFont(new Font("Montserrat", Font.BOLD, 40));
         stockName.setForeground(Color.WHITE);
         panel.add(stockName);
 
-        //String sDate = selectedStock.getDate("startDate");
-        //JLabel start = new JLabel()
+        JLabel startLabel = new JLabel("Start Date:");
+        startLabel.setBounds(40,80,320,45);
+        startLabel.setFont(new Font("Montserrat", Font.PLAIN, 24));
+        startLabel.setForeground(Color.WHITE);
+        panel.add(startLabel);
+
+        LocalDate sDate = selectedStock.getDate("startDate").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        JLabel start = new JLabel(sDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+        start.setBounds(40,110,320,45);
+        start.setFont(new Font("Montserrat", Font.PLAIN, 16));
+        start.setForeground(Color.WHITE);
+        panel.add(start);
 
         JButton quit = new JButton("x");
         quit.setFont(new Font("Montserrat", Font.BOLD, 18));

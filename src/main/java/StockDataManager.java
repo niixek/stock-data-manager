@@ -26,8 +26,8 @@ public class StockDataManager {
         collection = mongoConnect();
 
         //Run starting with the login GUI
-        LoginGui lg = new LoginGui(collection);
-        lg.login();
+        //LoginGui lg = new LoginGui(collection);
+        //lg.login();
 
         //Run starting with register GUI and login GUI upon closing
         //LoginGui lg2 = new LoginGui(collection);
@@ -43,11 +43,11 @@ public class StockDataManager {
         //wg.welcome();
 
         //Run starting with the stock GUI and document
-        /*
+
         LoginGui lg = new LoginGui(collection);
         Document data = lg.getData("test");
         StockGui sg = new StockGui(collection, data);
         sg.selectStock();
-         */
+
     }
 }
