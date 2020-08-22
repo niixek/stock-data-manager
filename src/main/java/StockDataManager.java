@@ -46,6 +46,6 @@ public class StockDataManager {
         LoginGui lg = new LoginGui(collection);
         Document data = lg.getData("test");
         StockGui sg = new StockGui(collection, data);
-        sg.viewStock();
+        sg.selectStock();
     }
 }

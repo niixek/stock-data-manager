@@ -70,7 +70,7 @@ public class WelcomeGui implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 StockGui sg = new StockGui(usernames, data);
-                sg.viewStock();
+                sg.selectStock();
                 welcomeFrame.dispose();
             }
         });

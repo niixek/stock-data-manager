@@ -18,6 +18,9 @@ public class StockGui implements ActionListener {
     private JComboBox<String> select;
     private Document data;
     private JButton conbutton;
+    private String selectedStock;
+
+    private JFrame viewFrame;
     private Color background = new Color(33,33,33);
     private MatteBorder border = BorderFactory.createMatteBorder(0,0,1,0, Color.WHITE);
 
@@ -26,7 +29,7 @@ public class StockGui implements ActionListener {
         data = userData;
     }
 
-    public void viewStock() {
+    public void selectStock() {
         JPanel panel = new JPanel();
         panel.setBackground(background);
 
@@ -94,5 +97,47 @@ public class StockGui implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        selectedStock = (String)select.getSelectedItem();
+        frame.dispose();
+        viewStock(selectedStock);
+    }
+
+    public void viewStock(String selectedStock) {
+        JPanel panel = new JPanel();
+        panel.setBackground(background);
+
+        panel.setLayout(null);
+
+        viewFrame = new JFrame();
+        viewFrame.setSize(400,475);
+        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        viewFrame.setUndecorated(true);
+        viewFrame.setLocationRelativeTo(null);
+        viewFrame.setVisible(true);
+        viewFrame.add(panel);
+
+        JLabel text = new JLabel(selectedStock);
+        text.setBounds(40,30,320,35);
+        text.setFont(new Font("Montserrat", Font.PLAIN, 40));
+        text.setForeground(Color.WHITE);
+        panel.add(text);
+
+        JButton quit = new JButton("x");
+        quit.setFont(new Font("Montserrat", Font.BOLD, 18));
+        quit.setBounds(350, 20, 30, 20);
+        quit.setForeground(Color.WHITE);
+        quit.setBackground(background);
+        quit.setBorder(BorderFactory.createEmptyBorder());
+        quit.setFocusPainted(false);
+        quit.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        panel.add(quit);
+
+        viewFrame.setLocationRelativeTo(null);
+        viewFrame.setVisible(true);
     }
 }
