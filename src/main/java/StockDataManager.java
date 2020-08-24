@@ -9,7 +9,6 @@ import org.bson.Document;
  */
 public class StockDataManager {
     private static MongoCollection<Document> collection;
-
     /*
         mongoConnect attempts to connect to the mongoDB database that is requested, in this case
         the SDMLoginDB, and return the data that is stored in it.
@@ -38,16 +37,18 @@ public class StockDataManager {
         //InformationGui ig = new InformationGui(collection, "testname");
         //ig.enterInfo();
 
-        //Run starting with the welcome GUI and a username (not working)
-        //WelcomeGui wg = new WelcomeGui(collection, "testname");
-        //wg.welcome();
+        //Run starting with the welcome GUI and document
+        LoginGui lg = new LoginGui(collection);
+        Document data = lg.getData("test");
+        WelcomeGui wg = new WelcomeGui(collection, data);
+        wg.welcome();
 
         //Run starting with the stock GUI and document
 
-        LoginGui lg = new LoginGui(collection);
-        Document data = lg.getData("test");
-        StockGui sg = new StockGui(collection, data);
-        sg.selectStock();
+        //LoginGui lg = new LoginGui(collection);
+        //Document data = lg.getData("test");
+        //StockGui sg = new StockGui(collection, data);
+        //sg.selectStock();
 
     }
 }

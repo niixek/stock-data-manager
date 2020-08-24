@@ -76,9 +76,18 @@ public class WelcomeGui implements ActionListener {
         });
         panel.add(oldStock);
 
+        JButton addInfo = new JButton("Enter Stock Data");
+        addInfo.setFont(new Font("Montserrat", Font.BOLD, 14));
+        addInfo.setBounds(450, 275, 300, 30);
+        addInfo.setForeground(Color.WHITE);
+        addInfo.setBackground(new Color(197,76,76));
+        addInfo.setBorder(BorderFactory.createEmptyBorder());
+        addInfo.setFocusPainted(false);
+        panel.add(addInfo);
+
         JButton profile = new JButton("Edit Your Profile");
         profile.setFont(new Font("Montserrat", Font.BOLD, 14));
-        profile.setBounds(450, 275, 300, 30);
+        profile.setBounds(450, 325, 300, 30);
         profile.setForeground(Color.WHITE);
         profile.setBackground(new Color(197,76,76));
         profile.setBorder(BorderFactory.createEmptyBorder());
