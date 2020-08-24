@@ -38,17 +38,19 @@ public class StockDataManager {
         //ig.enterInfo();
 
         //Run starting with the welcome GUI and document
+        /*
         LoginGui lg = new LoginGui(collection);
         Document data = lg.getData("test");
         WelcomeGui wg = new WelcomeGui(collection, data);
         wg.welcome();
+         */
 
         //Run starting with the stock GUI and document
-
-        //LoginGui lg = new LoginGui(collection);
-        //Document data = lg.getData("test");
-        //StockGui sg = new StockGui(collection, data);
-        //sg.selectStock();
-
+        ///*
+        LoginGui lg = new LoginGui(collection);
+        Document data = lg.getData("test");
+        StockGui sg = new StockGui(collection, data);
+        sg.selectStock();
+        //*/
     }
 }

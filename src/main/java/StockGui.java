@@ -9,6 +9,7 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
@@ -151,6 +152,38 @@ public class StockGui implements ActionListener {
         start.setFont(new Font("Montserrat", Font.PLAIN, 16));
         start.setForeground(Color.WHITE);
         panel.add(start);
+
+        JLabel shares = new JLabel("You have " + selectedStock.getInteger("quantity") + " shares.");
+        shares.setBounds(40,150,320,45);
+        shares.setFont(new Font("Montserrat", Font.PLAIN, 20));
+        shares.setForeground(Color.WHITE);
+        panel.add(shares);
+
+        DecimalFormat df = new DecimalFormat("##.00");
+
+        JLabel initPriceLabel = new JLabel("The price you bought them at:");
+        initPriceLabel.setBounds(40,175,320,45);
+        initPriceLabel.setFont(new Font("Montserrat", Font.PLAIN, 20));
+        initPriceLabel.setForeground(Color.WHITE);
+        panel.add(initPriceLabel);
+
+        JLabel initPrice = new JLabel("$" + df.format(selectedStock.getDouble("price")), SwingConstants.CENTER);
+        initPrice.setBounds(40,205,320,45);
+        initPrice.setFont(new Font("Montserrat", Font.BOLD, 20));
+        initPrice.setForeground(Color.WHITE);
+        panel.add(initPrice);
+
+        JLabel initTotalPrice = new JLabel("Your starting total:");
+        initTotalPrice.setBounds(40,250,320,45);
+        initTotalPrice.setFont(new Font("Montserrat", Font.PLAIN, 20));
+        initTotalPrice.setForeground(Color.WHITE);
+        panel.add(initTotalPrice);
+
+        JLabel initTotal = new JLabel("$" + df.format(selectedStock.getDouble("total")), SwingConstants.CENTER);
+        initTotal.setBounds(40,275,320,45);
+        initTotal.setFont(new Font("Montserrat", Font.BOLD, 20));
+        initTotal.setForeground(Color.WHITE);
+        panel.add(initTotal);
 
         JButton quit = new JButton("x");
         quit.setFont(new Font("Montserrat", Font.BOLD, 18));
