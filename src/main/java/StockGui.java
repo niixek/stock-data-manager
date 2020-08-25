@@ -165,7 +165,7 @@ public class StockGui implements ActionListener {
         initPriceLabel.setForeground(Color.WHITE);
         panel.add(initPriceLabel);
 
-        JLabel initPrice = new JLabel("$" + Double.parseDouble(selectedStock.getString("price")), SwingConstants.CENTER);
+        JLabel initPrice = new JLabel("$" + selectedStock.getString("price"), SwingConstants.CENTER);
         initPrice.setBounds(40,205,320,45);
         initPrice.setFont(new Font("Montserrat", Font.BOLD, 20));
         initPrice.setForeground(Color.WHITE);
@@ -177,11 +177,24 @@ public class StockGui implements ActionListener {
         initTotalPrice.setForeground(Color.WHITE);
         panel.add(initTotalPrice);
 
-        JLabel initTotal = new JLabel("$" + Double.parseDouble(selectedStock.getString("total")), SwingConstants.CENTER);
+        JLabel initTotal = new JLabel("$" + selectedStock.getString("total"), SwingConstants.CENTER);
         initTotal.setBounds(40,275,320,45);
         initTotal.setFont(new Font("Montserrat", Font.BOLD, 20));
         initTotal.setForeground(Color.WHITE);
         panel.add(initTotal);
+
+        JLabel lastUpdLabel = new JLabel("Last Updated:");
+        lastUpdLabel.setBounds(40,310,320,45);
+        lastUpdLabel.setFont(new Font("Montserrat", Font.PLAIN, 20));
+        lastUpdLabel.setForeground(Color.WHITE);
+        panel.add(lastUpdLabel);
+
+        LocalDate lastUpdated = selectedStock.getDate("lastUpdated").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        JLabel lastDateUpd = new JLabel(lastUpdated.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+        lastDateUpd.setBounds(40,330,320,45);
+        lastDateUpd.setFont(new Font("Montserrat", Font.PLAIN, 16));
+        lastDateUpd.setForeground(Color.WHITE);
+        panel.add(lastDateUpd);
 
         JButton quit = new JButton("x");
         quit.setFont(new Font("Montserrat", Font.BOLD, 18));
