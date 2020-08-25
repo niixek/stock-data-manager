@@ -316,8 +316,7 @@ public class InformationGui implements ActionListener {
             int numStock = data.getInteger("stockNum") + 1;
             String stockNum = "stock" + numStock;
 
-//fix priceconverted, to a double
-            Document stockData = new Document("startDate", date).append("stockName", stock).append("quantity", quantity).append("price", priceConverted).append("total", df.format(totalCost));
+            Document stockData = new Document("startDate", date).append("stockName", stock).append("quantity", quantity).append("price", df.format(priceConverted)).append("total", df.format(totalCost));
             Document group = new Document(stockNum, stockData);
             Document update = new Document("$set", group);
             confirming(update, df.format(totalCost));

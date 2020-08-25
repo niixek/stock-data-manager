@@ -159,15 +159,13 @@ public class StockGui implements ActionListener {
         shares.setForeground(Color.WHITE);
         panel.add(shares);
 
-        DecimalFormat df = new DecimalFormat("##.00");
-
         JLabel initPriceLabel = new JLabel("The price you bought them at:");
         initPriceLabel.setBounds(40,175,320,45);
         initPriceLabel.setFont(new Font("Montserrat", Font.PLAIN, 20));
         initPriceLabel.setForeground(Color.WHITE);
         panel.add(initPriceLabel);
 
-        JLabel initPrice = new JLabel("$" + df.format(selectedStock.getDouble("price")), SwingConstants.CENTER);
+        JLabel initPrice = new JLabel("$" + Double.parseDouble(selectedStock.getString("price")), SwingConstants.CENTER);
         initPrice.setBounds(40,205,320,45);
         initPrice.setFont(new Font("Montserrat", Font.BOLD, 20));
         initPrice.setForeground(Color.WHITE);
@@ -179,7 +177,7 @@ public class StockGui implements ActionListener {
         initTotalPrice.setForeground(Color.WHITE);
         panel.add(initTotalPrice);
 
-        JLabel initTotal = new JLabel("$" + df.format(selectedStock.getDouble("total")), SwingConstants.CENTER);
+        JLabel initTotal = new JLabel("$" + Double.parseDouble(selectedStock.getString("total")), SwingConstants.CENTER);
         initTotal.setBounds(40,275,320,45);
         initTotal.setFont(new Font("Montserrat", Font.BOLD, 20));
         initTotal.setForeground(Color.WHITE);
