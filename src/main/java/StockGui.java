@@ -148,8 +148,8 @@ public class StockGui implements ActionListener {
 
         LocalDate sDate = selectedStock.getDate("startDate").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         JLabel start = new JLabel(sDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
-        start.setBounds(40,110,320,45);
-        start.setFont(new Font("Montserrat", Font.PLAIN, 16));
+        start.setBounds(40,105,320,45);
+        start.setFont(new Font("Montserrat", Font.PLAIN, 18));
         start.setForeground(Color.WHITE);
         panel.add(start);
 
@@ -191,8 +191,8 @@ public class StockGui implements ActionListener {
 
         LocalDate lastUpdated = selectedStock.getDate("lastUpdated").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         JLabel lastDateUpd = new JLabel(lastUpdated.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
-        lastDateUpd.setBounds(40,330,320,45);
-        lastDateUpd.setFont(new Font("Montserrat", Font.PLAIN, 16));
+        lastDateUpd.setBounds(40,335,320,45);
+        lastDateUpd.setFont(new Font("Montserrat", Font.PLAIN, 18));
         lastDateUpd.setForeground(Color.WHITE);
         panel.add(lastDateUpd);
 
