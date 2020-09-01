@@ -196,6 +196,12 @@ public class StockGui implements ActionListener {
         lastDateUpd.setForeground(Color.WHITE);
         panel.add(lastDateUpd);
 
+        JLabel profit = new JLabel("Total Profit:");
+        profit.setBounds(40,360,320,45);
+        profit.setFont(new Font("Montserrat", Font.PLAIN, 20));
+        profit.setForeground(Color.WHITE);
+        panel.add(profit);
+
         JButton quit = new JButton("x");
         quit.setFont(new Font("Montserrat", Font.BOLD, 18));
         quit.setBounds(350, 20, 30, 20);
@@ -210,6 +216,7 @@ public class StockGui implements ActionListener {
             }
         });
         panel.add(quit);
+
 
         viewFrame.setLocationRelativeTo(null);
         viewFrame.setVisible(true);
