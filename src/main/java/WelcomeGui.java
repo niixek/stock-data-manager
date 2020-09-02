@@ -2,7 +2,6 @@ import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
 import javax.swing.*;
-import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -83,6 +82,14 @@ public class WelcomeGui implements ActionListener {
         addInfo.setBackground(new Color(197,76,76));
         addInfo.setBorder(BorderFactory.createEmptyBorder());
         addInfo.setFocusPainted(false);
+        addInfo.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EnterDataGui edg = new EnterDataGui(usernames, data);
+                edg.enterData();
+                welcomeFrame.dispose();
+            }
+        });
         panel.add(addInfo);
 
         JButton profile = new JButton("Edit Your Profile");
@@ -92,6 +99,14 @@ public class WelcomeGui implements ActionListener {
         profile.setBackground(new Color(197,76,76));
         profile.setBorder(BorderFactory.createEmptyBorder());
         profile.setFocusPainted(false);
+        profile.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ProfileGui pg = new ProfileGui(usernames, data);
+                pg.editProfile();
+                welcomeFrame.dispose();
+            }
+        });
         panel.add(profile);
 
         JButton quit = new JButton("x");
