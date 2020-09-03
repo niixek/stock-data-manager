@@ -17,7 +17,7 @@ public class EnterDataGui implements ActionListener {
         data = userData;
     }
 
-    public void enterData() {
+    public void enterData(WelcomeGui gui) {
         JPanel panel = new JPanel();
         panel.setBackground(background);
 
@@ -40,7 +40,8 @@ public class EnterDataGui implements ActionListener {
         quit.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                infoFrame.dispose();
+                gui.getFrame().setVisible(true);
             }
         });
         panel.add(quit);

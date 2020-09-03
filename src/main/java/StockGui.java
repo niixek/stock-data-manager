@@ -29,6 +29,7 @@ public class StockGui implements ActionListener {
 
     private JFrame viewFrame;
     private Color background = new Color(33,33,33);
+    private WelcomeGui welcome;
     private MatteBorder border = BorderFactory.createMatteBorder(0,0,1,0, Color.WHITE);
 
     public StockGui(MongoCollection<Document> collection, Document userData) {
@@ -36,7 +37,8 @@ public class StockGui implements ActionListener {
         data = userData;
     }
 
-    public void selectStock() {
+    public void selectStock(WelcomeGui gui) {
+        welcome = gui;
         JPanel panel = new JPanel();
         panel.setBackground(background);
 
@@ -73,7 +75,8 @@ public class StockGui implements ActionListener {
         quit.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                frame.dispose();
+                welcome.getFrame().setVisible(true);
             }
         });
         panel.add(quit);
@@ -212,7 +215,8 @@ public class StockGui implements ActionListener {
         quit.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                frame.dispose();
+                welcome.getFrame().setVisible(true);
             }
         });
         panel.add(quit);

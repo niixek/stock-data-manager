@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ProfileGui implements ActionListener {
-    private JFrame infoFrame;
+    private JFrame profileFrame;
     private MongoCollection<Document> usernames;
     private Document data;
     private Color background = new Color(33,33,33);
@@ -17,15 +17,15 @@ public class ProfileGui implements ActionListener {
         data = userData;
     }
 
-    public void editProfile() {
+    public void editProfile(WelcomeGui gui) {
         JPanel panel = new JPanel();
         panel.setBackground(background);
 
-        infoFrame = new JFrame();
-        infoFrame.setSize(400,475);
-        infoFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        infoFrame.setUndecorated(true);
-        infoFrame.add(panel);
+        profileFrame = new JFrame();
+        profileFrame.setSize(400,475);
+        profileFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        profileFrame.setUndecorated(true);
+        profileFrame.add(panel);
 
         panel.setLayout(null);
 
@@ -40,13 +40,14 @@ public class ProfileGui implements ActionListener {
         quit.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                profileFrame.dispose();
+                gui.getFrame().setVisible(true);
             }
         });
         panel.add(quit);
 
-        infoFrame.setLocationRelativeTo(null);
-        infoFrame.setVisible(true);
+        profileFrame.setLocationRelativeTo(null);
+        profileFrame.setVisible(true);
     }
     @Override
     public void actionPerformed(ActionEvent e) {

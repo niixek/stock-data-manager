@@ -17,6 +17,14 @@ public class WelcomeGui implements ActionListener {
         data = userData;
     }
 
+    public JFrame getFrame() {
+        return welcomeFrame;
+    }
+
+    public WelcomeGui getGui() {
+        return this;
+    }
+
     public void welcome() {
         JPanel panel = new JPanel();
         panel.setBackground(background);
@@ -53,7 +61,7 @@ public class WelcomeGui implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 InformationGui ig = new InformationGui(usernames, data);
                 ig.enterInfo();
-                welcomeFrame.dispose();
+                welcomeFrame.setVisible(false);
             }
         });
         panel.add(newStock);
@@ -69,7 +77,7 @@ public class WelcomeGui implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 StockGui sg = new StockGui(usernames, data);
-                sg.selectStock();
+                sg.selectStock(getGui());
                 welcomeFrame.dispose();
             }
         });
@@ -86,7 +94,7 @@ public class WelcomeGui implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EnterDataGui edg = new EnterDataGui(usernames, data);
-                edg.enterData();
+                edg.enterData(getGui());
                 welcomeFrame.dispose();
             }
         });
@@ -103,7 +111,7 @@ public class WelcomeGui implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ProfileGui pg = new ProfileGui(usernames, data);
-                pg.editProfile();
+                pg.editProfile(getGui());
                 welcomeFrame.dispose();
             }
         });
